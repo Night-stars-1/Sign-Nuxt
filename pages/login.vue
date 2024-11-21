@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-19 19:00:06
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-21 22:31:54
+ * @LastEditTime: 2024-11-21 23:08:43
 -->
 <script setup lang="ts">
 import type { FormInst, FormItemRule } from "naive-ui";
@@ -11,8 +11,7 @@ const isLogin = ref(true);
 const bgImage = useBackground();
 const token = useCookie("token");
 const message = useMessage();
-const localBgImage =
-  "https://t.alcy.cc/fj";
+const localBgImage = "https://t.alcy.cc/fj";
 onBeforeMount(() => {
   bgImage.value = localBgImage;
 });
@@ -25,18 +24,6 @@ const formValue = ref({
   email: "",
 });
 const rules = {
-  name: {
-    required: true,
-    validator(rule: FormItemRule, value: string) {
-      if (!value) {
-        return new Error("请输入用户名");
-      } else if (value.length < 5) {
-        return new Error("用户名至少5位");
-      }
-      return true;
-    },
-    trigger: ["input", "blur"],
-  },
   password: {
     required: true,
     validator(rule: FormItemRule, value: string) {
@@ -76,8 +63,8 @@ const api = async (path: string) => {
   const { data: result } = await useAPI<ResponseModel>(`user/${path}`, {
     method: "POST",
     body: {
-      username: formValue.value.name,
       password: formValue.value.password,
+      email: formValue.value.email,
     },
   });
   if (!result.value) return;
@@ -116,8 +103,8 @@ const confirm = () => {
           :rules="rules"
           size="medium"
         >
-          <NFormItem label="用户名" path="name">
-            <NInput v-model:value="formValue.name" placeholder="输入用户名" />
+          <NFormItem label="邮箱" path="email">
+            <NInput v-model:value="formValue.email" placeholder="输入邮箱" />
           </NFormItem>
           <NFormItem label="密码" path="password">
             <NInput
@@ -140,9 +127,6 @@ const confirm = () => {
               @keydown.enter.prevent
               placeholder="重复密码"
             />
-          </NFormItem>
-          <NFormItem label="邮箱" path="email" v-if="!isLogin">
-            <NInput v-model:value="formValue.email" placeholder="输入邮箱" />
           </NFormItem>
         </NForm>
         <NButton class="login-btn" type="info" @click="confirm">
