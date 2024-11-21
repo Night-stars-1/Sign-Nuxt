@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-19 19:00:06
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-20 13:02:41
+ * @LastEditTime: 2024-11-21 22:31:54
 -->
 <script setup lang="ts">
 import type { FormInst, FormItemRule } from "naive-ui";
@@ -12,7 +12,7 @@ const bgImage = useBackground();
 const token = useCookie("token");
 const message = useMessage();
 const localBgImage =
-  "https://res.cloudinary.com/dci1eujqw/image/upload/v1616769558/Codepen/waldemar-brandt-aThdSdgx0YM-unsplash_cnq4sb.jpg";
+  "https://t.alcy.cc/fj";
 onBeforeMount(() => {
   bgImage.value = localBgImage;
 });
