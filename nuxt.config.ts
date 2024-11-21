@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 15:36:40
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-21 22:58:47
+ * @LastEditTime: 2024-11-21 23:53:52
  */
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
@@ -11,7 +11,7 @@ import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   appConfig: {
-    BASE_URL: "http://127.0.0.1:58080/",
+    BASE_URL: process.env.BASE_URL,
   },
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },

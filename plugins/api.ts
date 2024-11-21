@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-20 12:52:05
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-21 21:33:30
+ * @LastEditTime: 2024-11-22 00:32:57
  */
 export default defineNuxtPlugin((nuxtApp) => {
   const appConfig = useAppConfig();
@@ -18,6 +18,10 @@ export default defineNuxtPlugin((nuxtApp) => {
     async onResponseError({ response }) {
       if (response.status === 401) {
         await nuxtApp.runWithContext(() => navigateTo("/login"));
+      } else {
+        await nuxtApp.runWithContext(() =>
+          useMessage().error(response._data.message ?? "未知错误")
+        );
       }
     },
   });

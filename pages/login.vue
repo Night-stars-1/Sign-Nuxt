@@ -2,9 +2,10 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-19 19:00:06
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-21 23:08:43
+ * @LastEditTime: 2024-11-22 00:38:10
 -->
 <script setup lang="ts">
+import md5 from "md5";
 import type { FormInst, FormItemRule } from "naive-ui";
 
 const isLogin = ref(true);
@@ -63,7 +64,7 @@ const api = async (path: string) => {
   const { data: result } = await useAPI<ResponseModel>(`user/${path}`, {
     method: "POST",
     body: {
-      password: formValue.value.password,
+      password: md5(formValue.value.password),
       email: formValue.value.email,
     },
   });
