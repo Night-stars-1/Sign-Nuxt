@@ -24,6 +24,5 @@ useHead({
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  height: 800px;
 }
 </style>
