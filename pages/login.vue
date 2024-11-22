@@ -7,8 +7,17 @@
 <script setup lang="ts">
 import md5 from "md5";
 import type { FormInst, FormItemRule } from "naive-ui";
+useHead({
+  title: "登录",
+});
 
 const isLogin = ref(true);
+watch(isLogin, () => {
+  useHead({
+    title: isLogin.value ? "登录" : "注册",
+  });
+});
+
 const bgImage = useBackground();
 const token = useCookie("token");
 const localBgImage = "https://t.alcy.cc/fj";

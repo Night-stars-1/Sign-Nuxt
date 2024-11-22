@@ -19,7 +19,7 @@ onBeforeMount(() => {
       v-if="isClick"
       @click="isClick = !isClick"
     ></div>
-    <div class="topbar only-mobile" v-if="!['login'].includes($route.name as string)">
+    <div class="topbar only-mobile mobile-header" v-if="!['login'].includes($route.name as string)">
       <NButton class="topbar-btn" @click="isClick = !isClick">展开</NButton>
       <div class="sidebar" :class="{ show: isClick }">
         <slot name="sidebar"></slot>
@@ -47,7 +47,7 @@ onBeforeMount(() => {
   }
   & {
     display: flex;
-    min-height: 100vh;
+    height: 100vh;
   }
 }
 
@@ -83,6 +83,13 @@ onBeforeMount(() => {
       }
     }
 
+    &.mobile-header {
+      background-color: white;
+      padding: 5px;
+      box-shadow: 0 2px 10px #0003;
+      z-index: 999;
+    }
+
     & {
       width: 100vw;
     }
@@ -102,5 +109,6 @@ onBeforeMount(() => {
   flex-grow: 1; /* 右侧内容区域自适应宽度 */
   padding: 20px;
   box-sizing: border-box;
+  overflow: auto;
 }
 </style>

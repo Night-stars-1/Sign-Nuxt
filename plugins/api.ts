@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-22 15:48:31
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-22 16:30:29
+ * @LastEditTime: 2024-11-22 20:51:02
  */
 import type { FetchResponse } from "ofetch";
 
@@ -12,8 +12,8 @@ export default defineNuxtPlugin((nuxtApp) => {
   function handleError<T>(
     response: FetchResponse<ResponseModel<T>> & FetchResponse<ResponseType>
   ) {
-    const err = (text: string, message: string | undefined) => {
-      nuxtApp.runWithContext(() => window.$message.error(message ?? text));
+    const err = (text: string, message?: string) => {
+      nuxtApp.runWithContext(() => window?.$message?.error(message ?? text));
     };
     if (!response._data) {
       err("请求超时，服务器无响应！");
@@ -25,7 +25,10 @@ export default defineNuxtPlugin((nuxtApp) => {
       403: () => err("没有权限访问该资源", response._data?.message),
       401: () => {
         err("登录状态已过期，需要重新登录", response._data?.message);
-        nuxtApp.runWithContext(() => navigateTo("/login"));
+        nuxtApp.runWithContext(() => {
+          useCookie("token").value == null;
+          navigateTo("/login");
+        });
       },
     };
     if (handleMap[response.status]) handleMap[response.status]();

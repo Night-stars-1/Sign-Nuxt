@@ -1,3 +1,9 @@
+<script setup lang="ts">
+useHead({
+  title: "首页",
+});
+</script>
+
 <template>
   <NSpace vertical>
     <NCard title="签到信息">
@@ -18,5 +24,6 @@
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  height: 800px;
 }
 </style>

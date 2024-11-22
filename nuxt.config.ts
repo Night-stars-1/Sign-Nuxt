@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 15:36:40
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-22 17:16:42
+ * @LastEditTime: 2024-11-22 20:55:08
  */
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
@@ -59,7 +59,7 @@ export default defineNuxtConfig({
     // 该配置用于服务端请求转发
     routeRules: {
       "/api/**": {
-        proxy: "http://127.0.0.1:58080/**",
+        proxy: process.env.SERVER_PROXY,
       },
     },
   },

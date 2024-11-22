@@ -5,6 +5,10 @@
  * @LastEditTime: 2024-11-22 15:56:27
 -->
 <script setup lang="ts">
+useHead({
+  title: "我的任务",
+});
+
 enum StatusCode {
   StopStatus,
   RunStatus,
