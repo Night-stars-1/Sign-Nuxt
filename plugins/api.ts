@@ -1,28 +1,60 @@
 /*
  * @Author: Night-stars-1 nujj1042633805@gmail.com
- * @Date: 2024-11-20 12:52:05
+ * @Date: 2024-11-22 15:48:31
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-22 00:32:57
+ * @LastEditTime: 2024-11-22 16:30:29
  */
-export default defineNuxtPlugin((nuxtApp) => {
-  const appConfig = useAppConfig();
-  const BASE_URL = appConfig.BASE_URL;
+import type { FetchResponse } from "ofetch";
 
+export default defineNuxtPlugin((nuxtApp) => {
   const token = useCookie("token");
 
+  function handleError<T>(
+    response: FetchResponse<ResponseModel<T>> & FetchResponse<ResponseType>
+  ) {
+    const err = (text: string, message: string | undefined) => {
+      nuxtApp.runWithContext(() => window.$message.error(message ?? text));
+    };
+    if (!response._data) {
+      err("请求超时，服务器无响应！");
+      return;
+    }
+    const handleMap: { [key: number]: () => void } = {
+      404: () => err("服务器资源不存在", response._data?.message),
+      500: () => err("服务器内部错误", response._data?.message),
+      403: () => err("没有权限访问该资源", response._data?.message),
+      401: () => {
+        err("登录状态已过期，需要重新登录", response._data?.message);
+        nuxtApp.runWithContext(() => navigateTo("/login"));
+      },
+    };
+    if (handleMap[response.status]) handleMap[response.status]();
+    else err("未知错误！", response._data?.message);
+  }
+
   const api = $fetch.create({
-    baseURL: BASE_URL,
+    // 请求拦截器
     onRequest({ options }) {
+      const {
+        public: { BASE_URL },
+      } = useRuntimeConfig();
+      options.baseURL = BASE_URL;
+      options.headers = new Headers(options.headers);
       options.headers.set("Authorization", `Bearer ${token.value}`);
     },
-    async onResponseError({ response }) {
-      if (response.status === 401) {
-        await nuxtApp.runWithContext(() => navigateTo("/login"));
-      } else {
-        await nuxtApp.runWithContext(() =>
-          useMessage().error(response._data.message ?? "未知错误")
-        );
+    // 响应拦截
+    onResponse({ response }) {
+      if (response._data.code !== 0) {
+        handleError(response);
+        return Promise.reject(response._data);
       }
+      // 成功返回
+      return response._data;
+    },
+    // 错误处理
+    onResponseError({ response }) {
+      handleError(response);
+      return Promise.reject(response?._data ?? null);
     },
   });
 

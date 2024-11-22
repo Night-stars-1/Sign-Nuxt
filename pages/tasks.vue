@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 23:52:39
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-21 13:31:27
+ * @LastEditTime: 2024-11-22 15:56:27
 -->
 <script setup lang="ts">
 enum StatusCode {
@@ -27,29 +27,22 @@ const addTaskOptions = [
   },
 ];
 
-onBeforeMount(() => {
-  useAPI(`task/list`, {
-    onResponse: ({ response }) => {
-      dataList.value = response._data.data;
-    },
-  });
-});
+const { data } = await useHttp.get<Data[]>("http://127.0.0.1:58080/task/list");
+dataList.value = data;
 
-const run = async (data: Data) => {
-  data.status = StatusCode.RunStatus;
-  const { data: result } = await useAPI<ResponseModel>(`task/run/${data.id}`);
-  if (!result.value) return;
-  data.actionId = result.value.data.actionId;
+const run = async (_data: Data) => {
+  _data.status = StatusCode.RunStatus;
+  const { data } = await useHttp.get(`task/run/${_data.id}`);
+  _data.actionId = data.actionId;
 };
 
-const log = async (data: Data) => {
-  const { data: result } = await useAPI<ResponseModel>(
-    `task/log/${data.id}/${data.actionId}`
+const log = async (_data: Data) => {
+  const { data } = await useHttp.get<any>(
+    `task/log/${_data.id}/${_data.actionId}`
   );
   dialog.success({
     title: "日志",
-    content: () =>
-      h("div", { style: { whiteSpace: "pre-line" } }, result.value?.data.log),
+    content: () => h("div", { style: { whiteSpace: "pre-line" } }, data.log),
     positiveText: "关闭",
     onClose: () => {},
   });
@@ -89,26 +82,29 @@ const addTask = () => {
           </NCard>
         </NGi>
       </NGrid>
+      <NModal v-model:show="showAddTask">
+        <NCard
+          style="width: 500px; height: 450px"
+          title="添加任务"
+          :bordered="false"
+          size="huge"
+          role="dialog"
+          aria-modal="true"
+          content-style="gap: 8px; display: flex; flex-direction: column; align-items: center;"
+        >
+          <NSelect
+            placeholder="选择任务"
+            v-model:value="addTaskValue"
+            :options="addTaskOptions"
+          />
+          <TaskMihoyo
+            v-if="addTaskValue == 'mihoyo'"
+            @close="showAddTask = !showAddTask"
+          />
+        </NCard>
+      </NModal>
     </ClientOnly>
   </NCard>
-  <NModal v-model:show="showAddTask">
-    <NCard
-      style="width: 500px; height: 450px"
-      title="添加任务"
-      :bordered="false"
-      size="huge"
-      role="dialog"
-      aria-modal="true"
-      content-style="gap: 8px; display: flex; flex-direction: column; align-items: center;"
-    >
-      <NSelect
-        placeholder="选择任务"
-        v-model:value="addTaskValue"
-        :options="addTaskOptions"
-      />
-      <TaskMihoyo v-if="addTaskValue == 'mihoyo'" @close="showAddTask = !showAddTask" />
-    </NCard>
-  </NModal>
 </template>
 
 <style lang="scss">

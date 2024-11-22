@@ -2,6 +2,10 @@
 import { DeviceType } from "~/types/device";
 const isClick = ref(false);
 const device = useDevice();
+const message = useMessage();
+onBeforeMount(() => {
+  window.$message = message;
+});
 </script>
 
 <template>

@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-19 19:00:06
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-22 00:38:10
+ * @LastEditTime: 2024-11-22 15:53:46
 -->
 <script setup lang="ts">
 import md5 from "md5";
@@ -11,7 +11,6 @@ import type { FormInst, FormItemRule } from "naive-ui";
 const isLogin = ref(true);
 const bgImage = useBackground();
 const token = useCookie("token");
-const message = useMessage();
 const localBgImage = "https://t.alcy.cc/fj";
 onBeforeMount(() => {
   bgImage.value = localBgImage;
@@ -61,20 +60,12 @@ function validatePasswordSame(rule: FormItemRule, value: string): boolean {
 }
 
 const api = async (path: string) => {
-  const { data: result } = await useAPI<ResponseModel>(`user/${path}`, {
-    method: "POST",
-    body: {
-      password: md5(formValue.value.password),
-      email: formValue.value.email,
-    },
+  const { data } = await useHttp.post(`user/${path}`, {
+    password: md5(formValue.value.password),
+    email: formValue.value.email,
   });
-  if (!result.value) return;
-  if (result.value.code === 0) {
-    token.value = result.value.data.token;
-    navigateTo("/home");
-  } else {
-    message.error(result.value.message);
-  }
+  token.value = data.token;
+  navigateTo("/home");
 };
 
 const confirm = () => {

@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 15:36:40
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-20 19:00:43
+ * @LastEditTime: 2024-11-22 15:22:14
 -->
 <script setup lang="ts">
 const bgImage = useBackground();
