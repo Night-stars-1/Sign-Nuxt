@@ -6,11 +6,9 @@ const message = useMessage();
 onBeforeMount(() => {
   window.$message = message;
 });
-console.log(useRoute())
 </script>
 
 <template>
-  {{ $route }}
   <div class="layout" :class="{ mobile: device === DeviceType.Mobile }">
     <div class="sidebar only-desktop" v-if="!['login'].includes($route.name as string)">
       <slot name="sidebar"></slot>

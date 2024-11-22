@@ -27,7 +27,7 @@ const addTaskOptions = [
   },
 ];
 
-const { data } = await useHttp.get<Data[]>("http://127.0.0.1:58080/task/list");
+const { data } = await useHttp.get<Data[]>("task/list");
 dataList.value = data;
 
 const run = async (_data: Data) => {
