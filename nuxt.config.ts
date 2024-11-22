@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 15:36:40
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-22 16:34:11
+ * @LastEditTime: 2024-11-22 17:16:42
  */
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
@@ -17,6 +17,7 @@ export default defineNuxtConfig({
   },
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
+  modules: ["nuxtjs-naive-ui"],
   css: ["~/assets/scss/main.scss"],
   vite: {
     plugins: [

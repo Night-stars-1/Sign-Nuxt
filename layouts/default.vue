@@ -6,11 +6,13 @@ const message = useMessage();
 onBeforeMount(() => {
   window.$message = message;
 });
+console.log(useRoute())
 </script>
 
 <template>
+  {{ $route }}
   <div class="layout" :class="{ mobile: device === DeviceType.Mobile }">
-    <div class="sidebar only-desktop" v-if="!['/login'].includes($route.path)">
+    <div class="sidebar only-desktop" v-if="!['login'].includes($route.name as string)">
       <slot name="sidebar"></slot>
     </div>
 
@@ -19,7 +21,7 @@ onBeforeMount(() => {
       v-if="isClick"
       @click="isClick = !isClick"
     ></div>
-    <div class="topbar only-mobile" v-if="!['/login'].includes($route.path)">
+    <div class="topbar only-mobile" v-if="!['login'].includes($route.name as string)">
       <NButton class="topbar-btn" @click="isClick = !isClick">展开</NButton>
       <div class="sidebar" :class="{ show: isClick }">
         <slot name="sidebar"></slot>

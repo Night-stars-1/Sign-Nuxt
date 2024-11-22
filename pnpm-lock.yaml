@@ -17,6 +17,9 @@ importers:
       nuxt:
         specifier: ^3.14.1592
         version: 3.14.1592(@parcel/watcher@2.5.0)(@types/node@22.9.1)(ioredis@5.4.1)(magicast@0.3.5)(rollup@4.27.3)(sass-embedded@1.81.0)(sass@1.81.0)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.1)(sass-embedded@1.81.0)(sass@1.81.0)(terser@5.36.0))
+      nuxtjs-naive-ui:
+        specifier: ^1.0.2
+        version: 1.0.2(magicast@0.3.5)(rollup@4.27.3)(vue@3.5.13(typescript@5.6.3))
       unplugin-auto-import:
         specifier: ^0.18.5
         version: 0.18.5(@nuxt/kit@3.14.1592(magicast@0.3.5)(rollup@4.27.3))(rollup@4.27.3)
@@ -2217,6 +2220,9 @@ packages:
         optional: true
       '@types/node':
         optional: true
+
+  nuxtjs-naive-ui@1.0.2:
+    resolution: {integrity: sha512-qJ5ZKTEQieNaSNJFHdRCCz9SOLRB7Rg0vwzFJe64WYKt+SzDM2sQ7ZXj2raJzyIPBtKInQv6yDo2vvSBsLiUHA==}
 
   nypm@0.3.12:
     resolution: {integrity: sha512-D3pzNDWIvgA+7IORhD/IuWzEk4uXv6GsgOxiid4UU3h9oq5IqV1KtPDi63n4sZJ/xcWlr88c0QM2RgN5VbOhFA==}
@@ -5822,6 +5828,16 @@ snapshots:
       - vti
       - vue-tsc
       - xml2js
+
+  nuxtjs-naive-ui@1.0.2(magicast@0.3.5)(rollup@4.27.3)(vue@3.5.13(typescript@5.6.3)):
+    dependencies:
+      '@css-render/vue3-ssr': 0.15.14(vue@3.5.13(typescript@5.6.3))
+      '@nuxt/kit': 3.14.1592(magicast@0.3.5)(rollup@4.27.3)
+    transitivePeerDependencies:
+      - magicast
+      - rollup
+      - supports-color
+      - vue
 
   nypm@0.3.12:
     dependencies:
