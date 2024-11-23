@@ -74,6 +74,7 @@ const api = async (path: string) => {
     email: formValue.value.email,
   });
   token.value = data.token;
+  localStorage.setItem("group", data.group);
   navigateTo("/home");
 };
 

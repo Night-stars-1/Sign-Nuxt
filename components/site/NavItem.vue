@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 21:26:17
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-23 19:06:42
+ * @LastEditTime: 2024-11-24 01:57:00
 -->
 <script setup lang="ts">
 defineProps<{
@@ -17,7 +17,8 @@ defineProps<{
     <NButton
       class="site-nav-item"
       :class="{ 'is-active': $route.path == to }"
-      strong secondary
+      strong
+      secondary
       :color="$route.path == to ? '#0a4d94' : 'black'"
     >
       <template #icon>
@@ -34,6 +35,8 @@ defineProps<{
 .site-nav-item {
   &.is-active {
     border: 2px solid #0a4d94;
+    width: calc(100% + 4px);
+    margin-left: -2px;
   }
   &:has(.is-active)::before {
     position: absolute;
@@ -50,7 +53,7 @@ defineProps<{
     width: 100%;
     justify-content: flex-start;
     padding: 0 20px;
-    background-color: rgba(255, 255, 255, .3) !important;
+    background-color: rgba(255, 255, 255, 0.3) !important;
   }
 }
 </style>
