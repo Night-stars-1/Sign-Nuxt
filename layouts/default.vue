@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { MenuRound } from '@vicons/material';
 import { DeviceType } from "~/types/device";
 const isClick = ref(false);
 const device = useDevice();
@@ -32,7 +33,9 @@ onMounted(() => {
       class="topbar only-mobile mobile-header"
       v-if="!['login'].includes($route.name as string)"
     >
-      <NButton class="topbar-btn" @click="isClick = !isClick">展开</NButton>
+      <NButton class="topbar-btn" text @click="isClick = !isClick">
+          <NIcon size="40" :component="MenuRound" />
+      </NButton>
       <div class="sidebar" :class="{ show: isClick }">
         <slot name="sidebar"></slot>
       </div>
@@ -75,6 +78,11 @@ onMounted(() => {
   }
 
   .topbar {
+    .topbar-btn {
+      padding-top: 5px;
+      padding-inline: 5px;
+    }
+
     .sidebar {
       &.show {
         transform: translate3d(0px, 0, 0);
@@ -97,7 +105,6 @@ onMounted(() => {
 
     &.mobile-header {
       background-color: white;
-      padding: 5px;
       box-shadow: 0 2px 10px #0003;
       z-index: 999;
     }
