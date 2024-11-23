@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 23:52:39
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-22 15:56:27
+ * @LastEditTime: 2024-11-23 02:11:50
 -->
 <script setup lang="ts">
 useHead({
@@ -15,6 +15,7 @@ enum StatusCode {
 }
 interface Data {
   name: string;
+  nickname: string;
   id: number;
   status: StatusCode;
   actionId: number;
@@ -70,6 +71,7 @@ const addTask = () => {
         <NGi v-for="data in dataList">
           <NCard class="task-card" :id="data.id">
             <div>任务名称 {{ data.name }}</div>
+            <div>我的名称 {{ data.nickname }}</div>
             <template #action>
               <NSpace justify="space-between">
                 <NButton

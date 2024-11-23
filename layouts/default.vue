@@ -6,11 +6,20 @@ const message = useMessage();
 onBeforeMount(() => {
   window.$message = message;
 });
+
+onMounted(() => {
+  document.querySelectorAll(".mobile-header .site-nav-item").forEach((elem) => {
+    elem.addEventListener("click", () => (isClick.value = false));
+  });
+});
 </script>
 
 <template>
   <div class="layout" :class="{ mobile: device === DeviceType.Mobile }">
-    <div class="sidebar only-desktop" v-if="!['login'].includes($route.name as string)">
+    <div
+      class="sidebar only-desktop"
+      v-if="!['login'].includes($route.name as string)"
+    >
       <slot name="sidebar"></slot>
     </div>
 
@@ -19,7 +28,10 @@ onBeforeMount(() => {
       v-if="isClick"
       @click="isClick = !isClick"
     ></div>
-    <div class="topbar only-mobile mobile-header" v-if="!['login'].includes($route.name as string)">
+    <div
+      class="topbar only-mobile mobile-header"
+      v-if="!['login'].includes($route.name as string)"
+    >
       <NButton class="topbar-btn" @click="isClick = !isClick">展开</NButton>
       <div class="sidebar" :class="{ show: isClick }">
         <slot name="sidebar"></slot>

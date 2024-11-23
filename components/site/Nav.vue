@@ -2,8 +2,12 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 16:09:18
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-22 21:52:04
+ * @LastEditTime: 2024-11-23 17:37:36
 -->
+<script setup lang="ts">
+
+</script>
+
 <template>
   <div class="site-nav">
     <div class="top">
