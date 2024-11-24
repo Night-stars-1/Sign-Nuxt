@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 23:52:39
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-24 16:38:19
+ * @LastEditTime: 2024-11-24 20:45:19
 -->
 <script setup lang="ts">
 useHead({
@@ -26,6 +26,8 @@ const loading = ref(true);
 const dataList = ref<Data[]>([]);
 const showAddTask = ref(false);
 const addTaskValue = ref(null);
+const logMsg = ref("");
+
 const addTaskOptions = [
   {
     label: "米游社",
@@ -44,14 +46,19 @@ const run = async (_data: Data) => {
 };
 
 const log = async (_data: Data) => {
-  const { data } = await useHttp.get<any>(
-    `task/log/${_data.id}/${_data.actionId}`
+  const interval = setInterval(
+    () =>
+      useHttp.get(`task/log/${_data.id}/${_data.actionId}`).then(({ data }) => {
+        logMsg.value = data.log;
+      }),
+    500
   );
   dialog.success({
     title: "日志",
-    content: () => h("div", { style: { whiteSpace: "pre-line" } }, data.log),
+    content: () =>
+      h("div", { style: { whiteSpace: "pre-line" } }, logMsg.value),
     positiveText: "关闭",
-    onClose: () => {},
+    onClose: () => interval && clearInterval(interval),
   });
 };
 
@@ -66,7 +73,12 @@ const addTask = () => {
       <NButton type="success" dashed @click="addTask"> 添加任务 </NButton>
     </template>
     <ClientOnly fallback-tag="span" fallback="加载任务中...">
-      <NGrid x-gap="12" y-gap="12" :cols="!loading && dataList.length == 0 ? '1' : '1 m:2 l:4'" responsive="screen">
+      <NGrid
+        x-gap="12"
+        y-gap="12"
+        :cols="!loading && dataList.length == 0 ? '1' : '1 m:2 l:4'"
+        responsive="screen"
+      >
         <NGi v-if="loading">
           <NSkeleton height="150px" :sharp="false" size="medium" />
         </NGi>
