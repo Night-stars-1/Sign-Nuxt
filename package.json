@@ -3,11 +3,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build",
+    "build": "nuxt build --dotenv .env.production",
     "dev": "nuxt dev --dotenv .env.local",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "generate": "nuxt generate --dotenv .env.production",
+    "preview": "nuxt preview --dotenv .env.production",
+    "postinstall": "nuxt prepare --dotenv .env.production"
   },
   "dependencies": {
     "@nuxt/kit": "^3.14.1592",

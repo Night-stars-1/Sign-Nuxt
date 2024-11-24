@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 23:52:39
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-23 02:11:50
+ * @LastEditTime: 2024-11-24 16:38:19
 -->
 <script setup lang="ts">
 useHead({
@@ -22,6 +22,7 @@ interface Data {
 }
 
 const dialog = useDialog();
+const loading = ref(true);
 const dataList = ref<Data[]>([]);
 const showAddTask = ref(false);
 const addTaskValue = ref(null);
@@ -34,6 +35,7 @@ const addTaskOptions = [
 
 const { data } = await useHttp.get<Data[]>("task/list");
 dataList.value = data;
+loading.value = false;
 
 const run = async (_data: Data) => {
   _data.status = StatusCode.RunStatus;
@@ -64,9 +66,12 @@ const addTask = () => {
       <NButton type="success" dashed @click="addTask"> 添加任务 </NButton>
     </template>
     <ClientOnly fallback-tag="span" fallback="加载任务中...">
-      <NGrid x-gap="12" y-gap="12" cols="1 m:2 l:4" responsive="screen">
-        <NGi v-if="dataList.length == 0">
+      <NGrid x-gap="12" y-gap="12" :cols="!loading && dataList.length == 0 ? '1' : '1 m:2 l:4'" responsive="screen">
+        <NGi v-if="loading">
           <NSkeleton height="150px" :sharp="false" size="medium" />
+        </NGi>
+        <NGi v-if="!loading">
+          <NEmpty description="暂未无任务" v-if="dataList.length == 0" />
         </NGi>
         <NGi v-for="data in dataList">
           <NCard class="task-card" :id="data.id">
