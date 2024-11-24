@@ -40,7 +40,7 @@ const showQrCode = async () => {
     const status = data.status;
     switch (status) {
       case QrCodeStatus.Success:
-        message.error("添加成功");
+        message.success("添加成功");
         isClose = true;
         break;
       case QrCodeStatus.Failed:
