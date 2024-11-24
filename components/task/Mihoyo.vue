@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-20 19:09:14
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-22 15:31:57
+ * @LastEditTime: 2024-11-24 19:58:35
 -->
 <script setup lang="ts">
 const emit = defineEmits(["close"]);
@@ -32,19 +32,19 @@ const showQrCode = async () => {
   const deviceId = result.data.device_id;
   qrData.value = result.data.url;
   interval = setInterval(async () => {
-    const { data: result } = await useHttp.post("mihoyo/check", {
+    const { data, message: msg } = await useHttp.post("mihoyo/check", {
       ticket,
       device_id: deviceId,
     });
     let isClose = false;
-    const status = result.value?.data.status;
+    const status = data.status;
     switch (status) {
       case QrCodeStatus.Success:
         message.error("添加成功");
         isClose = true;
         break;
       case QrCodeStatus.Failed:
-        message.error(result.value?.message ?? "请求异常");
+        message.error(msg ?? "请求异常");
         isClose = true;
         break;
       case null:
