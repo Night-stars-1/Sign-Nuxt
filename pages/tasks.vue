@@ -70,8 +70,8 @@ const addTask = () => {
         <NGi v-if="loading">
           <NSkeleton height="150px" :sharp="false" size="medium" />
         </NGi>
-        <NGi v-if="!loading">
-          <NEmpty description="暂未无任务" v-if="dataList.length == 0" />
+        <NGi v-if="dataList.length == 0">
+          <NEmpty description="暂未无任务" />
         </NGi>
         <NGi v-for="data in dataList">
           <NCard class="task-card" :id="data.id">
