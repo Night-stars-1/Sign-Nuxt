@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 23:52:39
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-24 20:45:19
+ * @LastEditTime: 2024-11-24 21:30:45
 -->
 <script setup lang="ts">
 useHead({
@@ -26,7 +26,7 @@ const loading = ref(true);
 const dataList = ref<Data[]>([]);
 const showAddTask = ref(false);
 const addTaskValue = ref(null);
-const logMsg = ref("");
+const logMsg = ref(null);
 
 const addTaskOptions = [
   {
@@ -51,14 +51,13 @@ const log = async (_data: Data) => {
       useHttp.get(`task/log/${_data.id}/${_data.actionId}`).then(({ data }) => {
         logMsg.value = data.log;
       }),
-    500
+    1000
   );
   dialog.success({
     title: "日志",
     content: () =>
-      h("div", { style: { whiteSpace: "pre-line" } }, logMsg.value),
-    positiveText: "关闭",
-    onClose: () => interval && clearInterval(interval),
+      h("div", { style: { whiteSpace: "pre-line" } }, logMsg.value ?? "加载中..."),
+    onAfterLeave: () => interval && clearInterval(interval),
   });
 };
 

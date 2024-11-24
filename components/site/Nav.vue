@@ -10,7 +10,6 @@ import { UserGroup } from '~/types/user';
 
 const isAdmin = ref(false)
 onBeforeMount(() => {
-  console.log(localStorage.getItem("group"), localStorage.getItem("group") == UserGroup.Admin.toString())
   isAdmin.value = localStorage.getItem("group") == UserGroup.Admin.toString()
 })
 </script>
