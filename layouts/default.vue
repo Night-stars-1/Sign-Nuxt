@@ -54,8 +54,6 @@ onMounted(() => {
 .layout {
   .sidebar {
     // flex: 1;
-    width: 180px;
-    min-width: 180px;
     background-color: #3b4f64;
     padding: 7px;
     box-sizing: border-box;
@@ -89,7 +87,7 @@ onMounted(() => {
       }
 
       & {
-        width: 200px;
+        // width: 200px;
         height: 100vh;
         background-color: #e5effd;
         padding: 20px;
@@ -99,7 +97,7 @@ onMounted(() => {
         top: 0px;
         z-index: 9999;
         transition: transform 0.3s;
-        transform: translate3d(-200px, 0, 0);
+        transform: translate3d(-220px, 0, 0);
       }
     }
 

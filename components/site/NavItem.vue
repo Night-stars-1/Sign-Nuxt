@@ -2,18 +2,21 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 21:26:17
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-24 01:57:00
+ * @LastEditTime: 2024-11-26 21:06:11
 -->
 <script setup lang="ts">
 defineProps<{
-  name: string;
-  icon: Component;
-  to: string;
+  name?: string;
+  icon?: Component;
+  to?: string;
+  collapse?: boolean;
 }>();
+
+defineEmits(["click"]);
 </script>
 
 <template>
-  <NuxtLink :to="to">
+  <NuxtLink :to="to" @click="$emit('click')">
     <NButton
       class="site-nav-item"
       :class="{ 'is-active': $route.path == to }"
@@ -25,7 +28,7 @@ defineProps<{
         <NIcon size="20" :component="icon" />
       </template>
       <p class="site-nav-text" :class="{ 'is-active': $route.path == to }">
-        {{ name }}
+        {{ collapse === false ? name : "" }}
       </p>
     </NButton>
   </NuxtLink>
