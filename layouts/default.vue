@@ -31,7 +31,7 @@ onMounted(() => {
     ></div>
     <div
       class="topbar only-mobile mobile-header"
-      v-if="!['login'].includes($route.name as string)"
+      v-show="!['login'].includes($route.name as string)"
     >
       <NButton class="topbar-btn" text @click="isClick = !isClick">
           <NIcon size="40" :component="MenuRound" />

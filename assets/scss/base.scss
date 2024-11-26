@@ -1,11 +1,32 @@
 @media (max-width: 600px) {
     .only-desktop {
-      display: none !important;
+        display: none !important;
     }
 }
 
 @media (min-width: 600px) {
     .only-mobile {
-      display: none !important;
+        display: none !important;
     }
+}
+
+.n-card {
+    .n-card {
+        box-shadow: -1px 1px 5px 1px rgba(0, 0, 0, 0.2);
+        backdrop-filter: none;
+    }
+
+    & {
+        box-shadow: -5px 5px 10px 0px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(3px);
+    }
+}
+
+.n-dialog {
+    backdrop-filter: blur(5px);
+}
+
+.n-modal {
+    max-width: calc(100% - 15px);
+    // --n-color-modal: rgb(255 255 255 / 65%) !important;
 }
