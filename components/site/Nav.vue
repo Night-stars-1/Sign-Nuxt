@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 16:09:18
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-26 21:14:35
+ * @LastEditTime: 2024-11-28 22:37:45
 -->
 <script setup lang="ts">
 import {
@@ -15,7 +15,7 @@ import { UserGroup } from "~/types/user";
 import { DeviceType } from "~/types/device";
 
 const device = useDevice();
-console.log(MenuOpenOutlined);
+
 const isAdmin = ref(false);
 const isCollapse = ref(false);
 

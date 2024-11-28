@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-19 19:00:06
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-25 11:28:58
+ * @LastEditTime: 2024-11-28 23:02:43
 -->
 <script setup lang="ts">
 import md5 from "md5";
@@ -94,7 +94,7 @@ const confirm = () => {
         <div
           class="login-bg-img"
           :style="{ backgroundImage: `url(${localBgImage})` }"
-        ></div>
+        />
       </div>
       <div class="login-content">
         <h1 class="title">{{ isLogin ? "登录" : "注册" }}</h1>
