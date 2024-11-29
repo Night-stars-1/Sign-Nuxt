@@ -2,13 +2,14 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 15:36:40
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-29 00:32:43
+ * @LastEditTime: 2024-11-29 23:36:18
 -->
 <script setup lang="ts">
 import type { GlobalThemeOverrides } from "naive-ui";
 
 const bgImage = useBackground();
 const bgLoad = useBgload();
+const isAnimationEnd = ref(false);
 useHead({
   title: "签到系统",
   titleTemplate: "%s - 签到系统",
@@ -30,19 +31,20 @@ const themeOverrides: GlobalThemeOverrides = {
 
 onMounted(() => {
   setTimeout(() => {
-    bgLoad.value = true
-  }, 1500)
-})
+    bgLoad.value = true;
+  }, 1500);
+});
 </script>
 
 <template>
   <NuxtLoadingIndicator />
   <img
     class="background"
+    :class="{ 'animation-end': isAnimationEnd }"
     alt="background"
     :src="bgImage"
-
     v-show="bgLoad"
+    @animationend="isAnimationEnd = true"
   />
   <NuxtRouteAnnouncer />
   <SiteLoading />
@@ -52,7 +54,7 @@ onMounted(() => {
       <NDialogProvider>
         <NuxtLayout>
           <template #sidebar>
-            <SiteNav />
+            <SiteSideBar />
           </template>
           <template #main>
             <NuxtPage />
@@ -66,14 +68,16 @@ onMounted(() => {
 <style lang="scss" scoped>
 .background {
   object-fit: cover;
-  position: fixed;
+  position: absolute;
   filter: blur(20px) brightness(0.3);
   transition: filter 0.3s, transform 0.3s;
   animation: fade-blur-in 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   // background-size: cover;
-  width: 100vw;
-  height: 100vh;
   z-index: -1;
+  width: 100%;
+  height: 100%;
+  clip-path: inset(0); /* 裁剪背景超出部分 */
+  transform-origin: center center; /* 放大从中心开始 */
 }
 
 @keyframes fade-blur-in {

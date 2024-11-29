@@ -76,5 +76,10 @@ const bgLoad = useBgload();
   .loading {
     display: none;
   }
+
+  & {
+    transform: translateY(-100%);
+    transition: transform 0.1s ease-out;
+  }
 }
 </style>

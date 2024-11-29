@@ -1,7 +1,14 @@
 @use 'base.scss';
 
 body {
-    margin: 0px;
+    &:has(.animation-end) {
+        overflow: auto;
+    }
+
+    & {
+        margin: 0px;
+        overflow: hidden;
+    }
 }
 
 ::-webkit-scrollbar {
@@ -9,6 +16,7 @@ body {
     height: 8px;
     background-color: #fff;
 }
+
 ::-webkit-scrollbar-thumb {
     background-color: #dddee0;
     border-radius: 20px;
