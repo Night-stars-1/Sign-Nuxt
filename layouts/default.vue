@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { MenuRound } from '@vicons/material';
+import { MenuRound } from "@vicons/material";
 import { DeviceType } from "~/types/device";
 const isClick = ref(false);
 const device = useDevice();
 const message = useMessage();
+const bgLoad = useBgload();
 onBeforeMount(() => {
   window.$message = message;
 });
@@ -16,7 +17,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="layout" :class="{ mobile: device === DeviceType.Mobile }">
+  <div
+    class="layout"
+    :class="{ mobile: device === DeviceType.Mobile }"
+    v-show="bgLoad"
+  >
     <div
       class="sidebar only-desktop"
       v-if="!['login'].includes($route.name as string)"
@@ -34,7 +39,7 @@ onMounted(() => {
       v-show="!['login'].includes($route.name as string)"
     >
       <NButton class="topbar-btn" text @click="isClick = !isClick">
-          <NIcon size="40" :component="MenuRound" />
+        <NIcon size="40" :component="MenuRound" />
       </NButton>
       <div class="sidebar" :class="{ show: isClick }">
         <slot name="sidebar"></slot>
@@ -61,7 +66,22 @@ onMounted(() => {
   & {
     display: flex;
     height: 100vh;
+    transform: scale(1.2);
+    transition: transform 0.3s;
+    animation: fade-blur-main-in 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+      forwards;
+    overflow: hidden;
   }
+}
+
+@keyframes fade-blur-main-in {
+    from {
+        transform: scale(1.2);
+    }
+
+    to {
+        transform: scale(1);
+    }
 }
 
 .layout.mobile {
@@ -123,9 +143,11 @@ onMounted(() => {
   &.not-padding {
     padding: 0px;
   }
-  flex-grow: 1; /* 右侧内容区域自适应宽度 */
-  padding: 20px;
-  box-sizing: border-box;
-  overflow: auto;
+  & {
+    flex-grow: 1; /* 右侧内容区域自适应宽度 */
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: auto;
+  }
 }
 </style>

@@ -2,10 +2,10 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 15:36:40
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-28 23:05:08
+ * @LastEditTime: 2024-11-29 00:32:43
 -->
 <script setup lang="ts">
-import type { GlobalThemeOverrides } from 'naive-ui'
+import type { GlobalThemeOverrides } from "naive-ui";
 
 const bgImage = useBackground();
 const bgLoad = useBgload();
@@ -14,7 +14,7 @@ useHead({
   titleTemplate: "%s - 签到系统",
 });
 
-const themeOverrides: GlobalThemeOverrides  = {
+const themeOverrides: GlobalThemeOverrides = {
   Card: {
     color: "rgb(255 255 255 / 65%)",
     actionColor: "none",
@@ -25,13 +25,25 @@ const themeOverrides: GlobalThemeOverrides  = {
   },
   Modal: {
     color: "rgb(255 255 255 / 65%)",
-  }
+  },
 };
+
+onMounted(() => {
+  setTimeout(() => {
+    bgLoad.value = true
+  }, 1500)
+})
 </script>
 
 <template>
   <NuxtLoadingIndicator />
-  <img class="background" :src="bgImage" @load="bgLoad = true" />
+  <img
+    class="background"
+    alt="background"
+    :src="bgImage"
+
+    v-show="bgLoad"
+  />
   <NuxtRouteAnnouncer />
   <SiteLoading />
 
@@ -51,15 +63,31 @@ const themeOverrides: GlobalThemeOverrides  = {
   </NConfigProvider>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .background {
   object-fit: cover;
   position: fixed;
-  /* background-size: cover; */
+  filter: blur(20px) brightness(0.3);
+  transition: filter 0.3s, transform 0.3s;
+  animation: fade-blur-in 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  // background-size: cover;
   width: 100vw;
   height: 100vh;
   z-index: -1;
 }
+
+@keyframes fade-blur-in {
+  from {
+    filter: blur(20px) brightness(0.3);
+    transform: scale(1.6);
+  }
+
+  to {
+    filter: blur(0px) brightness(1);
+    transform: scale(1);
+  }
+}
+
 @media (max-width: 600px) {
   .background {
     background-position: center;

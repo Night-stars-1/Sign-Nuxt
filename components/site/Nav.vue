@@ -45,13 +45,15 @@ const collapse = () => {
         :icon="TaskTwotone"
         :collapse="isCollapse"
       />
-      <SiteNavItem
-        name="管理"
-        to="/admin"
-        :icon="AdminPanelSettingsTwotone"
-        v-if="isAdmin"
-        :collapse="isCollapse"
-      />
+      <ClientOnly>
+        <SiteNavItem
+          name="管理"
+          to="/admin"
+          :icon="AdminPanelSettingsTwotone"
+          v-if="isAdmin"
+          :collapse="isCollapse"
+        />
+      </ClientOnly>
     </div>
     <div class="bottom">
       <SiteNavItem
