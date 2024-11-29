@@ -79,7 +79,7 @@ const bgLoad = useBgload();
 
   & {
     transform: translateY(-100%);
-    transition: transform 0.1s ease-out;
+    transition: transform 0.1s 0.7s ease-out;
   }
 }
 </style>

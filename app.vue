@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 15:36:40
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-29 23:36:18
+ * @LastEditTime: 2024-11-30 01:13:52
 -->
 <script setup lang="ts">
 import type { GlobalThemeOverrides } from "naive-ui";
@@ -75,9 +75,7 @@ onMounted(() => {
   // background-size: cover;
   z-index: -1;
   width: 100%;
-  height: 100%;
-  clip-path: inset(0); /* 裁剪背景超出部分 */
-  transform-origin: center center; /* 放大从中心开始 */
+  height: 100vh;
 }
 
 @keyframes fade-blur-in {
