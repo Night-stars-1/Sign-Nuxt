@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 16:09:18
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-30 00:24:00
+ * @LastEditTime: 2024-11-30 20:15:20
 -->
 <script setup lang="ts">
 import {
@@ -38,7 +38,7 @@ const navList: {
   },
 ];
 
-const navClientList: {
+const navAdminList: {
   name: string;
   icon: Component;
   to: string;
@@ -74,12 +74,13 @@ const collapse = () => {
         @click="isClick = false"
         v-for="nav in navList"
       />
-      <ClientOnly v-for="nav in navClientList">
+      <ClientOnly v-for="nav in navAdminList">
         <SiteNavItem
           :name="nav.name"
           :to="nav.to"
           :icon="nav.icon"
           :collapse="isCollapse"
+          v-if="isAdmin"
           @click="isClick = false"
         />
       </ClientOnly>

@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 15:36:40
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-30 01:51:36
+ * @LastEditTime: 2024-11-30 20:19:42
 -->
 <script setup lang="ts">
 import type { GlobalThemeOverrides } from "naive-ui";
@@ -98,7 +98,7 @@ onMounted(() => {
 
 .page-enter-active,
 .page-leave-active {
-	transition: all 0.5s ease;
+	transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 1);
 }
 
 .page-enter-from {
