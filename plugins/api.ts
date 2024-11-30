@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-22 15:48:31
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-22 20:51:02
+ * @LastEditTime: 2024-11-30 20:03:26
  */
 import type { FetchResponse } from "ofetch";
 
@@ -38,10 +38,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   const api = $fetch.create({
     // 请求拦截器
     onRequest({ options }) {
-      const {
-        public: { BASE_URL },
-      } = useRuntimeConfig();
-      options.baseURL = BASE_URL;
+      options.baseURL = "/api/";
       options.headers = new Headers(options.headers);
       options.headers.set("Authorization", `Bearer ${token.value}`);
     },

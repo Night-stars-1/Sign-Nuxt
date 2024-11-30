@@ -2,27 +2,25 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 15:36:40
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-24 21:22:35
+ * @LastEditTime: 2024-11-30 20:06:41
  */
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
-console.log(process.env.SERVER_PROXY)
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  runtimeConfig: {
-    public: {
-      BASE_URL: process.env.BASE_URL,
-    },
-  },
+  app: {
+		pageTransition: { name: 'page', mode: 'out-in' }
+	},
   compatibilityDate: "2024-04-03",
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   modules: ["nuxtjs-naive-ui"],
   css: ["~/assets/scss/main.scss"],
   vite: {
     plugins: [
       AutoImport({
-        dts: "imports.d.ts",
+        dts: "types/imports.d.ts",
         imports: [
           {
             "naive-ui": [
@@ -35,7 +33,7 @@ export default defineNuxtConfig({
         ],
       }),
       Components({
-        dts: "components.d.ts",
+        dts: "types/components.d.ts",
         resolvers: [NaiveUiResolver()],
       }),
     ],
@@ -51,7 +49,7 @@ export default defineNuxtConfig({
     // 用于客户端代理
     devProxy: {
       "/api": {
-        target: "http://127.0.0.1:58080", // 这里是接口地址
+        target: process.env.BASE_URL,
         changeOrigin: true,
         prependPath: true,
       },
