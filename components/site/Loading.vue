@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 20:37:47
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-29 23:15:45
+ * @LastEditTime: 2024-12-02 00:27:08
 -->
 <script setup lang="ts">
 const bgLoad = useBgload();
@@ -18,6 +18,15 @@ const bgLoad = useBgload();
     <div class="loader-section left"></div>
   </div>
 </template>
+
+<style lang="scss">
+.dark {
+  .loading,
+  .loader-section {
+    background-color: #2a324b !important;
+  }
+}
+</style>
 
 <style lang="scss" scoped>
 .main {

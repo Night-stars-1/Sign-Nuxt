@@ -2,12 +2,11 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 15:36:40
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-01 23:50:26
+ * @LastEditTime: 2024-12-02 00:26:50
 -->
 <script setup lang="ts">
-import { darkTheme, type GlobalThemeOverrides } from "naive-ui";
+import { darkTheme, dateZhCN, zhCN, type GlobalThemeOverrides } from "naive-ui";
 
-const start = ref(false);
 const bgImage = useBackground();
 const bgLoad = useBgload();
 const isAnimationEnd = ref(false);
@@ -16,13 +15,7 @@ useHead({
   titleTemplate: "%s - 签到系统",
 });
 
-const osTheme = useOsTheme();
-const theme = computed(() =>
-  osTheme.value === "dark" ? (start.value ? darkTheme : null) : null
-);
-onMounted(() => {
-  start.value = true;
-});
+const theme = useTheme();
 
 const lightThemeOverrides: GlobalThemeOverrides = {
   Card: {
@@ -70,12 +63,16 @@ onMounted(() => {
     @animationend="isAnimationEnd = true"
   />
   <NuxtRouteAnnouncer />
-  <SiteLoading />
+  <SiteLoading :class="theme" />
 
   <NConfigProvider
-    :class="theme?.name"
-    :theme-overrides="theme === null ? lightThemeOverrides : darkThemeOverrides"
-    :theme="theme"
+    :class="theme"
+    :theme-overrides="
+      theme === 'dark' ? darkThemeOverrides : lightThemeOverrides
+    "
+    :theme="theme === 'dark' ? darkTheme : null"
+    :locale="zhCN"
+    :date-locale="dateZhCN"
   >
     <NMessageProvider>
       <NDialogProvider>

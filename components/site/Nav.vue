@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 16:09:18
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-30 20:15:20
+ * @LastEditTime: 2024-12-02 00:19:22
 -->
 <script setup lang="ts">
 import {
@@ -10,6 +10,8 @@ import {
   TaskTwotone,
   AdminPanelSettingsTwotone,
   MenuOpenOutlined,
+  DarkModeTwotone,
+  LightModeTwotone,
 } from "@vicons/material";
 import { UserGroup } from "~/types/user";
 import { DeviceType } from "~/types/device";
@@ -17,6 +19,7 @@ import { DeviceType } from "~/types/device";
 const isClick = defineModel<boolean>("isClick", { default: false });
 
 const device = useDevice();
+const theme = useTheme();
 
 const isAdmin = ref(false);
 const isCollapse = ref(false);
@@ -92,6 +95,18 @@ const collapse = () => {
         :icon="MenuOpenOutlined"
         @click="collapse"
       />
+      <NSwitch
+        v-model:value="theme"
+        checked-value="dark"
+        unchecked-value="light"
+        size="medium"
+        style="margin-right: 5px"
+      >
+        <template #icon>
+          <DarkModeTwotone v-if="theme == 'dark'" />
+          <LightModeTwotone v-else />
+        </template>
+      </NSwitch>
     </div>
   </div>
 </template>
@@ -117,6 +132,10 @@ const collapse = () => {
 
     & {
       bottom: 0px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
     }
   }
 
