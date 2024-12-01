@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 23:52:39
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-24 21:30:45
+ * @LastEditTime: 2024-12-01 17:22:47
 -->
 <script setup lang="ts">
 useHead({
@@ -12,6 +12,7 @@ useHead({
 enum StatusCode {
   StopStatus,
   RunStatus,
+  NotSetStatus,
 }
 interface Data {
   name: string;
@@ -33,11 +34,18 @@ const addTaskOptions = [
     label: "米游社",
     value: "mihoyo",
   },
+  {
+    label: "米游社兑换",
+    value: "mihoyo_goods",
+  },
 ];
 
-const { data } = await useHttp.get<Data[]>("task/list");
-dataList.value = data;
-loading.value = false;
+const getList = async () => {
+  const { data } = await useHttp.get<Data[]>("task/list");
+  dataList.value = data;
+  loading.value = false;
+};
+getList();
 
 const run = async (_data: Data) => {
   _data.status = StatusCode.RunStatus;
@@ -56,13 +64,20 @@ const log = async (_data: Data) => {
   dialog.success({
     title: "日志",
     content: () =>
-      h("div", { style: { whiteSpace: "pre-line" } }, logMsg.value ?? "加载中..."),
+      h(
+        "div",
+        { style: { whiteSpace: "pre-line" } },
+        logMsg.value ?? "加载中..."
+      ),
     onAfterLeave: () => interval && clearInterval(interval),
   });
 };
 
 const addTask = () => {
   showAddTask.value = true;
+};
+const onAddTaskClose = () => {
+  getList();
 };
 </script>
 
@@ -92,6 +107,7 @@ const addTask = () => {
               <NSpace justify="space-between">
                 <NButton
                   :loading="data.status == StatusCode.RunStatus"
+                  v-if="data.status != StatusCode.NotSetStatus"
                   @click="run(data)"
                 >
                   执行
@@ -104,7 +120,7 @@ const addTask = () => {
           </NCard>
         </NGi>
       </NGrid>
-      <NModal v-model:show="showAddTask">
+      <NModal v-model:show="showAddTask" @after-leave="onAddTaskClose">
         <NCard
           style="width: 500px; height: 450px"
           title="添加任务"
@@ -121,6 +137,10 @@ const addTask = () => {
           />
           <TaskMihoyo
             v-if="addTaskValue == 'mihoyo'"
+            @close="showAddTask = !showAddTask"
+          />
+          <TaskMihoyoGoods
+            v-if="addTaskValue == 'mihoyo_goods'"
             @close="showAddTask = !showAddTask"
           />
         </NCard>
