@@ -2,11 +2,12 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 15:36:40
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-30 20:19:42
+ * @LastEditTime: 2024-12-01 23:50:26
 -->
 <script setup lang="ts">
-import type { GlobalThemeOverrides } from "naive-ui";
+import { darkTheme, type GlobalThemeOverrides } from "naive-ui";
 
+const start = ref(false);
 const bgImage = useBackground();
 const bgLoad = useBgload();
 const isAnimationEnd = ref(false);
@@ -15,7 +16,15 @@ useHead({
   titleTemplate: "%s - 签到系统",
 });
 
-const themeOverrides: GlobalThemeOverrides = {
+const osTheme = useOsTheme();
+const theme = computed(() =>
+  osTheme.value === "dark" ? (start.value ? darkTheme : null) : null
+);
+onMounted(() => {
+  start.value = true;
+});
+
+const lightThemeOverrides: GlobalThemeOverrides = {
   Card: {
     color: "rgb(255 255 255 / 65%)",
     actionColor: "none",
@@ -26,6 +35,20 @@ const themeOverrides: GlobalThemeOverrides = {
   },
   Modal: {
     color: "rgb(255 255 255 / 65%)",
+  },
+};
+
+const darkThemeOverrides: GlobalThemeOverrides = {
+  Card: {
+    color: "rgb(0 0 0 / 65%)",
+    actionColor: "none",
+    borderColor: "none",
+  },
+  Dialog: {
+    color: "rgb(0 0 0 / 65%)",
+  },
+  Modal: {
+    color: "rgb(0 0 0 / 65%)",
   },
 };
 
@@ -49,7 +72,11 @@ onMounted(() => {
   <NuxtRouteAnnouncer />
   <SiteLoading />
 
-  <NConfigProvider :theme-overrides="themeOverrides">
+  <NConfigProvider
+    :class="theme?.name"
+    :theme-overrides="theme === null ? lightThemeOverrides : darkThemeOverrides"
+    :theme="theme"
+  >
     <NMessageProvider>
       <NDialogProvider>
         <NuxtLayout>
@@ -98,16 +125,16 @@ onMounted(() => {
 
 .page-enter-active,
 .page-leave-active {
-	transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 1);
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 1);
 }
 
 .page-enter-from {
-	opacity: 0;
-	filter: blur(3px);
+  opacity: 0;
+  filter: blur(3px);
 }
 
 .page-leave-to {
-	opacity: 0;
-	filter: blur(3px);
+  opacity: 0;
+  filter: blur(3px);
 }
 </style>

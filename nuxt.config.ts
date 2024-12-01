@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 15:36:40
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-30 20:06:41
+ * @LastEditTime: 2024-12-01 23:21:00
  */
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
@@ -28,6 +28,7 @@ export default defineNuxtConfig({
               "useMessage",
               "useNotification",
               "useLoadingBar",
+              "useOsTheme",
             ],
           },
         ],
