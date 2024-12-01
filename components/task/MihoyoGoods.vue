@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-12-01 01:33:47
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-01 17:17:58
+ * @LastEditTime: 2024-12-01 22:26:26
 -->
 <script setup lang="ts">
 const emit = defineEmits(["close"]);
@@ -183,6 +183,8 @@ const addScheduled = async (address_id?: string) => {
       flex-direction: column;
       gap: 8px;
       padding-block: 8px;
+      width: 100%;
+      white-space: normal; // 自动换行
     }
 
     &.goods1-btn {
