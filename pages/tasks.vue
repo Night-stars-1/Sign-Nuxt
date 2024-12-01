@@ -107,7 +107,7 @@ const onAddTaskClose = () => {
               <NSpace justify="space-between">
                 <NButton
                   :loading="data.status == StatusCode.RunStatus"
-                  v-if="data.status != StatusCode.NotSetStatus"
+                  v-show="data.status != StatusCode.NotSetStatus"
                   @click="run(data)"
                 >
                   执行
@@ -153,6 +153,10 @@ const onAddTaskClose = () => {
 .task-card {
   .n-card__action {
     padding: 10px var(--n-padding-left);
+  }
+
+  & {
+    height: 100%;
   }
 }
 </style>
