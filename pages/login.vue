@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-19 19:00:06
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-02 18:52:36
+ * @LastEditTime: 2024-12-02 18:57:00
 -->
 <script setup lang="ts">
 import md5 from "md5";
@@ -155,10 +155,13 @@ const confirm = () => {
       }
 
       .title {
-        margin-bottom: 10px;
-
         + .login-form {
           width: 80%;
+        }
+
+        & {
+          color: var(--text-color);
+          margin-bottom: 10px;
         }
       }
 
@@ -177,12 +180,13 @@ const confirm = () => {
           text-align: left;
           margin-bottom: 35px;
           margin-top: 5px;
+          color: var(--text-color);
         }
       }
 
       & {
         flex: 1;
-        background-color: var(--base-background-color)
+        background-color: var(--base-background-color);
       }
     }
 

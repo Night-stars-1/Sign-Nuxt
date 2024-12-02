@@ -35,10 +35,12 @@ body {
     --base-background-color: #e5effd;
     --sidebar-background-color: #e5effd;
     --loading-background-color: var(--sidebar-background-color);
+    --text-color: black;
 }
 
 body.dark {
     --base-background-color: #1b1b1b;
     --sidebar-background-color: #2a324b;
     --loading-background-color: var(--sidebar-background-color);
+    --text-color: white;
 }
