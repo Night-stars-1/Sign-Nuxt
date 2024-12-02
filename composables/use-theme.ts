@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-12-01 23:54:06
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-02 00:07:17
+ * @LastEditTime: 2024-12-02 18:31:37
  */
 declare type Theme = "light" | "dark";
 

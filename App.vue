@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 15:36:40
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-02 00:26:50
+ * @LastEditTime: 2024-12-02 18:48:59
 -->
 <script setup lang="ts">
 import { darkTheme, dateZhCN, zhCN, type GlobalThemeOverrides } from "naive-ui";
@@ -16,6 +16,11 @@ useHead({
 });
 
 const theme = useTheme();
+useHead({
+  bodyAttrs: {
+    class: theme.value.toString(),
+  },
+});
 
 const lightThemeOverrides: GlobalThemeOverrides = {
   Card: {
@@ -63,10 +68,9 @@ onMounted(() => {
     @animationend="isAnimationEnd = true"
   />
   <NuxtRouteAnnouncer />
-  <SiteLoading :class="theme" />
+  <SiteLoading />
 
   <NConfigProvider
-    :class="theme"
     :theme-overrides="
       theme === 'dark' ? darkThemeOverrides : lightThemeOverrides
     "
@@ -120,6 +124,7 @@ onMounted(() => {
   }
 }
 
+// 页面切换动画
 .page-enter-active,
 .page-leave-active {
   transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 1);

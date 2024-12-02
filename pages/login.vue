@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-19 19:00:06
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-28 23:02:43
+ * @LastEditTime: 2024-12-02 18:08:04
 -->
 <script setup lang="ts">
 import md5 from "md5";
@@ -181,7 +181,7 @@ const confirm = () => {
 
       & {
         flex: 1;
-        background-color: #e5effd;
+        background-color: var(--base-background-color)
       }
     }
 

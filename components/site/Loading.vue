@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 20:37:47
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-02 00:27:08
+ * @LastEditTime: 2024-12-02 18:19:37
 -->
 <script setup lang="ts">
 const bgLoad = useBgload();
@@ -19,15 +19,6 @@ const bgLoad = useBgload();
   </div>
 </template>
 
-<style lang="scss">
-.dark {
-  .loading,
-  .loader-section {
-    background-color: #2a324b !important;
-  }
-}
-</style>
-
 <style lang="scss" scoped>
 .main {
   .loading {
@@ -39,7 +30,7 @@ const bgLoad = useBgload();
     align-items: center;
     width: 100vw;
     height: 100vh;
-    background-color: #f0f0f0;
+    background-color: var(--loading-background-color);
     z-index: 1;
   }
 

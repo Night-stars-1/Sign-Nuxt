@@ -35,14 +35,6 @@ onBeforeMount(() => {
   </div>
 </template>
 
-<style lang="scss">
-.dark {
-  .mobile-header {
-    background-color: #2a324b !important;
-  }
-}
-</style>
-
 <style lang="scss" scoped>
 .sidebar {
   // flex: 1;
@@ -97,7 +89,7 @@ onBeforeMount(() => {
   }
 
   &.mobile-header {
-    background-color: white;
+    background-color: var(--sidebar-background-color);
     box-shadow: 0 2px 10px #0003;
     z-index: 999;
   }
