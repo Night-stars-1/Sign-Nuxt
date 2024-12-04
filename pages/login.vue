@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-19 19:00:06
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-02 18:57:00
+ * @LastEditTime: 2024-12-04 00:46:56
 -->
 <script setup lang="ts">
 import md5 from "md5";
@@ -18,6 +18,7 @@ watch(isLogin, () => {
   });
 });
 
+const message = useMessage();
 const bgImage = useBackground();
 const token = useCookie("token");
 const localBgImage = "https://t.alcy.cc/fj";
@@ -31,6 +32,7 @@ const formValue = ref({
   password: "",
   reenteredPassword: "",
   email: "",
+  code: "",
 });
 const rules = {
   password: {
@@ -62,7 +64,13 @@ const rules = {
     message: "请输入邮箱",
     trigger: ["input"],
   },
+  code: {
+    required: true,
+    message: "请输入邮箱验证码",
+    trigger: ["input"],
+  },
 };
+const codeTime = ref(0);
 
 function validatePasswordSame(rule: FormItemRule, value: string): boolean {
   return value === formValue.value.password;
@@ -84,6 +92,20 @@ const confirm = () => {
       api(isLogin.value ? "login" : "register");
     }
   });
+};
+
+const getCode = async () => {
+  codeTime.value = 60;
+  const timer = setInterval(() => {
+    codeTime.value--;
+    if (codeTime.value <= 0) {
+      clearInterval(timer);
+    }
+  }, 1000);
+  const { data } = await useHttp.post(`user/code`, {
+    email: formValue.value.email,
+  });
+  message.success(data);
 };
 </script>
 
@@ -130,6 +152,17 @@ const confirm = () => {
               @keydown.enter.prevent
               placeholder="重复密码"
             />
+          </NFormItem>
+          <NFormItem label="验证" path="code" v-if="!isLogin">
+            <NInputGroup>
+              <NInput
+                v-model:value="formValue.code"
+                placeholder="输入邮箱验证码"
+              />
+              <NButton type="primary" ghost @click="getCode">
+                {{ codeTime ? `已发送 (${codeTime}s)` : "获取验证码" }}
+              </NButton>
+            </NInputGroup>
           </NFormItem>
         </NForm>
         <NButton class="login-btn" type="info" @click="confirm">
