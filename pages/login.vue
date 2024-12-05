@@ -80,6 +80,7 @@ const api = async (path: string) => {
   const { data } = await useHttp.post(`user/${path}`, {
     password: md5(formValue.value.password),
     email: formValue.value.email,
+    code: formValue.value.code,
   });
   if (import.meta.dev) token.value = data.token;
   localStorage.setItem("group", data.group);
