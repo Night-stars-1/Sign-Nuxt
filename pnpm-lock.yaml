@@ -14,6 +14,9 @@ importers:
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       md5:
         specifier: ^2.3.0
         version: 2.3.0
@@ -39,6 +42,9 @@ importers:
       '@css-render/vue3-ssr':
         specifier: ^0.15.14
         version: 0.15.14(vue@3.5.13(typescript@5.6.3))
+      '@types/lodash':
+        specifier: ^4.17.13
+        version: 4.17.13
       '@types/md5':
         specifier: ^2.3.5
         version: 2.3.5

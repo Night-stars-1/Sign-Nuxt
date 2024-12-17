@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build --dotenv .env.production",
-    "dev": "nuxt dev --dotenv .env.local --host",
+    "dev": "nuxt dev --dotenv .env.local",
     "generate": "nuxt generate --dotenv .env.production",
     "preview": "nuxt preview --dotenv .env.production",
     "postinstall": "nuxt prepare --dotenv .env.production"
@@ -12,6 +12,7 @@
   "dependencies": {
     "@nuxt/kit": "^3.14.1592",
     "dayjs": "^1.11.13",
+    "lodash": "^4.17.21",
     "md5": "^2.3.0",
     "nuxt": "^3.14.1592",
     "nuxtjs-naive-ui": "^1.0.2",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@css-render/vue3-ssr": "^0.15.14",
     "@types/md5": "^2.3.5",
+    "@types/lodash": "^4.17.13",
     "@vicons/material": "^0.12.0",
     "naive-ui": "^2.40.2",
     "sass": "^1.81.0"

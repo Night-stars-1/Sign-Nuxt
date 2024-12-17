@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-19 19:00:06
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-04 00:46:56
+ * @LastEditTime: 2024-12-17 19:49:20
 -->
 <script setup lang="ts">
 import md5 from "md5";
@@ -96,17 +96,19 @@ const confirm = () => {
 };
 
 const getCode = async () => {
-  codeTime.value = 60;
+  if (codeTime.value <= 0) {
+    const { data } = await useHttp.post(`user/code`, {
+      email: formValue.value.email,
+    });
+    message.success(data);
+    codeTime.value = 60;
+  }
   const timer = setInterval(() => {
     codeTime.value--;
     if (codeTime.value <= 0) {
       clearInterval(timer);
     }
   }, 1000);
-  const { data } = await useHttp.post(`user/code`, {
-    email: formValue.value.email,
-  });
-  message.success(data);
 };
 </script>
 
@@ -160,7 +162,12 @@ const getCode = async () => {
                 v-model:value="formValue.code"
                 placeholder="输入邮箱验证码"
               />
-              <NButton type="primary" ghost @click="getCode">
+              <NButton
+                type="primary"
+                ghost
+                :disabled="codeTime > 0"
+                @click="getCode"
+              >
                 {{ codeTime ? `已发送 (${codeTime}s)` : "获取验证码" }}
               </NButton>
             </NInputGroup>

@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-30 19:21:53
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-05 19:54:10
+ * @LastEditTime: 2024-12-17 19:10:01
 -->
 <!--
  * @Author: Night-stars-1 nujj1042633805@gmail.com
@@ -18,6 +18,7 @@ import {
   MenuOpenOutlined,
   DarkModeTwotone,
   LightModeTwotone,
+  PeopleAltTwotone,
 } from "@vicons/material";
 import { UserGroup } from "~/types/user";
 import { DeviceType } from "~/types/device";
@@ -44,6 +45,11 @@ const navList: {
     name: "我的任务",
     to: "/tasks",
     icon: TaskTwotone,
+  },
+  {
+    name: "我的主页",
+    to: "/info",
+    icon: PeopleAltTwotone,
   },
 ];
 
