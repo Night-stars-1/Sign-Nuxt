@@ -11,10 +11,13 @@ importers:
       '@nuxt/kit':
         specifier: ^3.14.1592
         version: 3.14.1592(magicast@0.3.5)(rollup@4.27.4)
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
       md5:

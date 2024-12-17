@@ -12,7 +12,7 @@
   "dependencies": {
     "@nuxt/kit": "^3.14.1592",
     "dayjs": "^1.11.13",
-    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "md5": "^2.3.0",
     "nuxt": "^3.14.1592",
     "nuxtjs-naive-ui": "^1.0.2",
@@ -24,8 +24,8 @@
   "packageManager": "pnpm@9.13.2+sha512.88c9c3864450350e65a33587ab801acf946d7c814ed1134da4a924f6df5a2120fd36b46aab68f7cd1d413149112d53c7db3a4136624cfd00ff1846a0c6cef48a",
   "devDependencies": {
     "@css-render/vue3-ssr": "^0.15.14",
+    "@types/lodash-es": "^4.17.12",
     "@types/md5": "^2.3.5",
-    "@types/lodash": "^4.17.13",
     "@vicons/material": "^0.12.0",
     "naive-ui": "^2.40.2",
     "sass": "^1.81.0"

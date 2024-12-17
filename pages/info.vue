@@ -2,10 +2,10 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-12-17 19:10:30
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-17 19:45:44
+ * @LastEditTime: 2024-12-17 23:17:22
 -->
 <script setup lang="ts">
-import { debounce } from "lodash";
+import { debounce } from "lodash-es";
 
 const group2Name = new Map([
   ["0", "普通用户"],
