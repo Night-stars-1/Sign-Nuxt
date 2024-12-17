@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-19 19:00:06
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-17 19:49:20
+ * @LastEditTime: 2024-12-17 20:31:19
 -->
 <script setup lang="ts">
 import md5 from "md5";
@@ -71,10 +71,14 @@ const rules = {
   },
 };
 const codeTime = ref(0);
+const isRegister = ref(true);
 
 function validatePasswordSame(rule: FormItemRule, value: string): boolean {
   return value === formValue.value.password;
 }
+
+const { data } = await useHttp.get<boolean>("user/isReg");
+isRegister.value = data;
 
 const api = async (path: string) => {
   const { data } = await useHttp.post(`user/${path}`, {
@@ -121,7 +125,11 @@ const getCode = async () => {
           :style="{ backgroundImage: `url(${localBgImage})` }"
         />
       </div>
-      <div class="login-content">
+      <div v-if="!isRegister && !isLogin" class="login-content">
+        <h1 class="title">暂停注册</h1>
+        <NButton @click="isLogin = !isLogin"> 返回登录 </NButton>
+      </div>
+      <div v-else class="login-content">
         <h1 class="title">{{ isLogin ? "登录" : "注册" }}</h1>
         <NForm
           ref="formRef"

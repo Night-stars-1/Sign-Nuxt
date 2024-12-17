@@ -2,15 +2,20 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-24 01:44:49
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-11-24 03:22:22
+ * @LastEditTime: 2024-12-17 20:25:35
 -->
 <script setup lang="ts">
-import { UserGroup } from '~/types/user';
+import { UserGroup } from "~/types/user";
+interface Info {
+  notice: string;
+  isRegister: boolean;
+}
 
 useHead({
   title: "管理",
 });
 
+const info = ref<Info>();
 const isAdmin = ref(false);
 const loading = ref(false);
 
@@ -18,15 +23,41 @@ onBeforeMount(() => {
   isAdmin.value = localStorage.getItem("group") == UserGroup.Admin.toString();
 });
 
-const runall = async () => {
+const runAll = async () => {
   loading.value = true;
   await useHttp.post("admin/run/all");
+  loading.value = false;
+};
+
+const getInfo = async () => {
+  const { data } = await useHttp.get<Info>("admin/info");
+  info.value = data;
+  console.log(info)
+};
+getInfo();
+
+const toggleReg = async () => {
+  loading.value = true;
+  await useHttp.post("admin/toggle/reg");
+  getInfo();
   loading.value = false;
 };
 </script>
 
 <template>
-  <div v-show="isAdmin">
-    <NButton type="primary" :loading="loading" @click="runall"> 一键运行 </NButton>
+  <div class="admin-content" v-show="isAdmin">
+    <NButton type="primary" :loading="loading" @click="runAll">
+      一键运行
+    </NButton>
+    <NButton type="primary" :loading="loading" @click="toggleReg">
+      {{ info?.isRegister ? "关闭注册" : "开启注册" }}
+    </NButton>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.admin-content {
+  display: flex;
+  gap: 8px;
+}
+</style>
