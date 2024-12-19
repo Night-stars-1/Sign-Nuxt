@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-12-17 19:10:30
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-17 23:17:22
+ * @LastEditTime: 2024-12-19 13:19:01
 -->
 <script setup lang="ts">
 import { debounce } from "lodash-es";
@@ -22,10 +22,9 @@ onBeforeMount(() => {
 });
 
 const deleteUser = async () => {
-  console.log(deleteNum)
   deleteTimeout ?? clearTimeout(deleteTimeout);
   deleteTimeout = setTimeout(() => (deleteNum = 0), 3000);
-  if (deleteNum < 3) {
+  if (deleteNum < 2) {
     deleteNum++;
     message.success("请在3秒内再次点击");
   } else {
