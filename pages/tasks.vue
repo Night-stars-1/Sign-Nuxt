@@ -2,9 +2,11 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 23:52:39
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-01 17:22:47
+ * @LastEditTime: 2024-12-20 23:32:48
 -->
 <script setup lang="ts">
+import { UserGroup } from "~/types/user";
+
 useHead({
   title: "我的任务",
 });
@@ -28,17 +30,25 @@ const dataList = ref<Data[]>([]);
 const showAddTask = ref(false);
 const addTaskValue = ref(null);
 const logMsg = ref(null);
+const group = ref<UserGroup>(UserGroup.Normal);
+onMounted(() => {
+  group.value = Number(localStorage.getItem("group")) as UserGroup;
+});
 
 const addTaskOptions = [
   {
     label: "米游社",
     value: "mihoyo",
   },
-  {
-    label: "米游社兑换",
-    value: "mihoyo_goods",
-  },
 ];
+onMounted(() => {
+  if (group.value == UserGroup.Goods1 || group.value == UserGroup.Admin) {
+    addTaskOptions.push({
+      label: "米游社兑换",
+      value: "mihoyo_goods",
+    });
+  }
+});
 
 const getList = async () => {
   const { data } = await useHttp.get<Data[]>("task/list");
