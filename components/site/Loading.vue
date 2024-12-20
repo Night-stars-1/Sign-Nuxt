@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 20:37:47
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-02 18:19:37
+ * @LastEditTime: 2024-12-21 00:26:11
 -->
 <script setup lang="ts">
 const bgLoad = useBgload();
@@ -50,7 +50,7 @@ const bgLoad = useBgload();
       top: 0;
       width: 100%;
       height: 100%;
-      background-color: #f0f0f0;
+      background-color: var(--loading-background-color);
     }
   }
 
