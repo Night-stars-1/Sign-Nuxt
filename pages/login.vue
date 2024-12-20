@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-19 19:00:06
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-17 20:31:19
+ * @LastEditTime: 2024-12-20 23:55:50
 -->
 <script setup lang="ts">
 import md5 from "md5";
@@ -87,7 +87,7 @@ const api = async (path: string) => {
     code: formValue.value.code,
   });
   if (import.meta.dev) token.value = data.token;
-  localStorage.setItem("group", data.group);
+  useInfo()
   navigateTo("/home");
 };
 

@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-24 01:44:49
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-17 20:25:35
+ * @LastEditTime: 2024-12-20 23:47:43
 -->
 <script setup lang="ts">
 import { UserGroup } from "~/types/user";
@@ -32,7 +32,6 @@ const runAll = async () => {
 const getInfo = async () => {
   const { data } = await useHttp.get<Info>("admin/info");
   info.value = data;
-  console.log(info)
 };
 getInfo();
 

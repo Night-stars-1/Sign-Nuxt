@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 15:36:40
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-02 18:48:59
+ * @LastEditTime: 2024-12-20 23:55:31
 -->
 <script setup lang="ts">
 import { darkTheme, dateZhCN, zhCN, type GlobalThemeOverrides } from "naive-ui";
@@ -50,10 +50,11 @@ const darkThemeOverrides: GlobalThemeOverrides = {
   },
 };
 
-onMounted(() => {
+onMounted(async () => {
   setTimeout(() => {
     bgLoad.value = true;
   }, 1500);
+  useInfo()
 });
 </script>
 
