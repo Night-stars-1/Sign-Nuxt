@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-12-01 01:33:47
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-19 19:19:20
+ * @LastEditTime: 2024-12-20 22:33:37
 -->
 <script setup lang="ts">
 const emit = defineEmits(["close"]);
@@ -30,6 +30,7 @@ interface Goods {
   type: number;
   /* not_in_sell online */
   status: string;
+  game_biz: string;
 }
 interface GoodsData {
   games: GoodsGame[];
@@ -47,12 +48,21 @@ interface AddressData {
   addr_ext: string;
 }
 
+interface UserGameData {
+  game_uid: string;
+  game_biz: string;
+  nickname: string;
+  region: string;
+  region_name: string;
+}
+
 const message = useMessage();
 const accountData = ref<AccountData[]>([]);
 var goods: Goods;
 const goodsData = ref<GoodsData>();
 const addressData = ref<AddressData[]>([]);
-const step = ref<string>("loading"); // 账号选择->奖品选择->地址选择 特殊状态 loading
+const userGameData = ref<UserGameData[]>([]);
+const step = ref<string>("loading"); // 账号选择->奖品选择->1.地址选择/2.游戏账号选择 特殊状态 loading
 var goodsPage = 1;
 var accountId = "0";
 const timestamp = Math.floor(Date.now() / 1000);
@@ -94,17 +104,28 @@ const getGoodsList = async () => {
   }
   step.value = "奖品选择";
 };
+
 const accountSelect = (account: AccountData) => {
   step.value = "loading";
   accountId = account.account_id;
   getGoodsList();
 };
-const addressSelect = async (_goods: Goods) => {
+
+const goodsSelect = async (_goods: Goods) => {
   goods = _goods;
-  if (_goods.type == 2) {
-    addScheduled();
-    return;
+  switch (_goods.type) {
+    case 1:
+      return addressSelect();
+    case 2:
+      return userGameSelect(_goods);
+    default:
+      message.success("未适配类型");
+      emit("close");
+      break;
   }
+};
+
+const addressSelect = async () => {
   step.value = "loading";
   const { data } = await useHttp.get<AddressData[]>("goods/address", {
     actionId: accountId,
@@ -112,20 +133,39 @@ const addressSelect = async (_goods: Goods) => {
   addressData.value = data;
   step.value = "地址选择";
 };
-const addScheduled = async (address_id?: string) => {
+
+const userGameSelect = async (_goods: Goods) => {
+  step.value = "loading";
+  const { data } = await useHttp.get<UserGameData[]>("goods/userGame", {
+    actionId: accountId,
+    goodsId: _goods.goods_id,
+  });
+  userGameData.value = data;
+  step.value = "游戏账号选择";
+};
+
+const addScheduled = async (
+  addressId: string,
+  gameBiz?: string,
+  gameUid?: string,
+  region?: string
+) => {
   const { message: msg } = await useHttp.post<GoodsData>("goods/add", {
     account_id: accountId,
     goods_id: goods.goods_id,
-    address_id: address_id,
+    address_id: addressId,
+    game_biz: gameBiz,
+    game_uid: gameUid,
+    region: region,
   });
-  message.success(msg)
+  message.success(msg);
   emit("close");
 };
 const deleteGoods = async () => {
   const { message: msg } = await useHttp.post("goods/delete");
-  message.success(msg)
+  message.success(msg);
   emit("close");
-}
+};
 </script>
 
 <template>
@@ -138,19 +178,14 @@ const deleteGoods = async () => {
     >
       {{ account.name }}
     </NButton>
-    <NButton
-      class="goods-delete-btn"
-      @click="deleteGoods"
-    >
-      删除任务
-    </NButton>
+    <NButton class="goods-delete-btn" @click="deleteGoods"> 删除任务 </NButton>
   </div>
   <div class="mihoyo-goods" v-if="step == '奖品选择' && goodsData">
     <NInfiniteScroll style="max-height: 100%" @load="getGoodsList">
       <NButton
         class="goods-btn goods1-btn"
         v-for="goods in goodsData.list"
-        @click="addressSelect(goods)"
+        @click="goodsSelect(goods)"
       >
         <div class="goods-btn-content">
           <div>商品: {{ goods.goods_name }}</div>
@@ -163,7 +198,7 @@ const deleteGoods = async () => {
     </NInfiniteScroll>
   </div>
   <div class="mihoyo-goods" v-if="step == '地址选择' && addressData">
-    <NInfiniteScroll style="max-height: 100%" @load="getGoodsList">
+    <NInfiniteScroll style="max-height: 100%">
       <NButton
         class="goods-btn goods1-btn"
         v-for="address in addressData"
@@ -175,6 +210,26 @@ const deleteGoods = async () => {
             {{ address.province_name }} {{ address.city_name }}
             {{ address.county_name }} {{ address.addr_ext }}
           </div>
+        </div>
+      </NButton>
+    </NInfiniteScroll>
+  </div>
+  <div class="mihoyo-goods" v-if="step == '游戏账号选择' && userGameData">
+    <NInfiniteScroll style="max-height: 100%">
+      <NButton
+        class="goods-btn goods1-btn"
+        v-for="userGame in userGameData"
+        @click="
+          addScheduled(
+            '',
+            userGame.game_biz,
+            userGame.game_uid,
+            userGame.region
+          )
+        "
+      >
+        <div class="goods-btn-content">
+          <div>{{ userGame.nickname }} {{ userGame.region_name }}</div>
         </div>
       </NButton>
     </NInfiniteScroll>
