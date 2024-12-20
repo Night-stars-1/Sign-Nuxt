@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-12-01 01:33:47
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-01 22:26:26
+ * @LastEditTime: 2024-12-19 19:19:20
 -->
 <script setup lang="ts">
 const emit = defineEmits(["close"]);
@@ -121,6 +121,11 @@ const addScheduled = async (address_id?: string) => {
   message.success(msg)
   emit("close");
 };
+const deleteGoods = async () => {
+  const { message: msg } = await useHttp.post("goods/delete");
+  message.success(msg)
+  emit("close");
+}
 </script>
 
 <template>
@@ -132,6 +137,12 @@ const addScheduled = async (address_id?: string) => {
       v-for="account in accountData"
     >
       {{ account.name }}
+    </NButton>
+    <NButton
+      class="goods-delete-btn"
+      @click="deleteGoods"
+    >
+      删除任务
     </NButton>
   </div>
   <div class="mihoyo-goods" v-if="step == '奖品选择' && goodsData">
@@ -176,7 +187,8 @@ const addScheduled = async (address_id?: string) => {
 }
 
 .mihoyo-goods {
-  .goods-btn {
+  .goods-btn,
+  .goods-delete-btn {
     // box-shadow: var(--n-box-shadow);
     .goods-btn-content {
       display: flex;
