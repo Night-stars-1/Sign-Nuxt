@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-24 01:44:49
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-20 23:47:43
+ * @LastEditTime: 2024-12-21 18:32:25
 -->
 <script setup lang="ts">
 import { UserGroup } from "~/types/user";
@@ -16,12 +16,9 @@ useHead({
 });
 
 const info = ref<Info>();
-const isAdmin = ref(false);
+const userInfo = useUserInfo();
+const isAdmin = computed(() => userInfo.value.group == UserGroup.Admin);
 const loading = ref(false);
-
-onBeforeMount(() => {
-  isAdmin.value = localStorage.getItem("group") == UserGroup.Admin.toString();
-});
 
 const runAll = async () => {
   loading.value = true;
@@ -44,19 +41,29 @@ const toggleReg = async () => {
 </script>
 
 <template>
-  <div class="admin-content" v-show="isAdmin">
-    <NButton type="primary" :loading="loading" @click="runAll">
-      一键运行
-    </NButton>
-    <NButton type="primary" :loading="loading" @click="toggleReg">
-      {{ info?.isRegister ? "关闭注册" : "开启注册" }}
-    </NButton>
+  <div class="admin-content">
+    <div class="admin-btn-content" v-show="isAdmin">
+      <NButton type="primary" :loading="loading" @click="runAll">
+        一键运行
+      </NButton>
+      <NButton type="primary" :loading="loading" @click="toggleReg">
+        {{ info?.isRegister ? "关闭注册" : "开启注册" }}
+      </NButton>
+    </div>
+    <AdminInfoTable />
   </div>
 </template>
 
 <style lang="scss" scoped>
 .admin-content {
-  display: flex;
-  gap: 8px;
+  .admin-btn-content {
+    display: flex;
+    gap: 8px;
+  }
+  & {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
 }
 </style>

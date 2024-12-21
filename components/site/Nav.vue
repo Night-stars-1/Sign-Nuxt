@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-30 19:21:53
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-17 19:10:01
+ * @LastEditTime: 2024-12-21 18:31:53
 -->
 <!--
  * @Author: Night-stars-1 nujj1042633805@gmail.com
@@ -27,8 +27,8 @@ const isClick = defineModel<boolean>("isClick", { default: false });
 
 const device = useDevice();
 const theme = useTheme();
-
-const isAdmin = ref(false);
+const userInfo = useUserInfo();
+const isAdmin = computed(() => userInfo.value.group == UserGroup.Admin);
 const isCollapse = ref(false);
 
 const navList: {
@@ -64,10 +64,6 @@ const navAdminList: {
     icon: AdminPanelSettingsTwotone,
   },
 ];
-
-onBeforeMount(() => {
-  isAdmin.value = localStorage.getItem("group") == UserGroup.Admin.toString();
-});
 
 const collapse = () => {
   if (device.value !== DeviceType.Mobile) {
