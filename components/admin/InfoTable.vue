@@ -147,6 +147,7 @@ const handlePageChange = async (currentPage: number) => {
 };
 handlePageChange(1);
 const setUserInfo = async (userData: UserInfo) => {
+  console.log(userData)
   const { data } = await useHttp.post("/admin/user/info", userData);
   message.success(data);
 };

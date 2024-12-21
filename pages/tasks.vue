@@ -30,10 +30,7 @@ const dataList = ref<Data[]>([]);
 const showAddTask = ref(false);
 const addTaskValue = ref(null);
 const logMsg = ref(null);
-const group = ref<UserGroup>(UserGroup.Normal);
-onMounted(() => {
-  group.value = Number(localStorage.getItem("group")) as UserGroup;
-});
+const userInfo = useUserInfo();
 
 const addTaskOptions = [
   {
@@ -42,7 +39,10 @@ const addTaskOptions = [
   },
 ];
 onMounted(() => {
-  if (group.value == UserGroup.Goods1 || group.value == UserGroup.Admin) {
+  if (
+    userInfo.value.group == UserGroup.Goods1 ||
+    userInfo.value.group == UserGroup.Admin
+  ) {
     addTaskOptions.push({
       label: "米游社兑换",
       value: "mihoyo_goods",
