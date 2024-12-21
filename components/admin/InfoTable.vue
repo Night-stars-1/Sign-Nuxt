@@ -143,11 +143,12 @@ const handlePageChange = async (currentPage: number) => {
     pageSize: pagination.pageSize,
   });
   pagination.pageCount = Math.ceil(_data.total / (pagination.pageSize ?? 1));
+  pagination.page = currentPage;
   data.value = _data.list;
 };
 handlePageChange(1);
 const setUserInfo = async (userData: UserInfo) => {
-  console.log(userData)
+  console.log(userData);
   const { data } = await useHttp.post("/admin/user/info", userData);
   message.success(data);
 };
