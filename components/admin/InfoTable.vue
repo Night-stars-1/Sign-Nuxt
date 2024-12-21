@@ -138,10 +138,12 @@ const userInfoForm = (index: number) => {
 };
 
 const handlePageChange = async (currentPage: number) => {
+  loading.value = true;
   const { data: _data } = await useHttp.get<UserInfoResp>("/admin/user/info", {
     page: currentPage,
     pageSize: pagination.pageSize,
   });
+  loading.value = false;
   pagination.pageCount = Math.ceil(_data.total / (pagination.pageSize ?? 1));
   pagination.page = currentPage;
   data.value = _data.list;
