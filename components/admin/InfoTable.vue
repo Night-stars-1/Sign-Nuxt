@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import { EyeInvisibleTwotone } from "@vicons/antd";
+import { RemoveRedEyeTwotone } from "@vicons/material";
 import {
   NButton,
   NForm,
   NFormItem,
+  NIcon,
   NInput,
   NSelect,
   type DataTableColumns,
@@ -25,6 +28,7 @@ const dialog = useDialog();
 const message = useMessage();
 const data = ref<UserInfo[]>([]);
 const loading = ref(false);
+const disableEye = ref(false);
 const pagination = reactive<PaginationProps>({
   page: 1,
   pageCount: 1,
@@ -49,8 +53,47 @@ const columns: DataTableColumns<UserInfo> = [
     width: "10%",
   },
   {
-    title: "邮箱",
+    title() {
+      return h(
+        "div",
+        {
+          size: "20",
+          style: {
+            display: "flex",
+            "justify-content": "space-between",
+            alignItems: "center",
+          },
+        },
+        {
+          default: () => [
+            "邮箱",
+            h(
+              NButton,
+              {
+                text: true,
+                onClick: () => {
+                  disableEye.value = !disableEye.value;
+                },
+              },
+              {
+                default: () =>
+                  disableEye.value
+                    ? h(NIcon, null, { default: () => h(EyeInvisibleTwotone) })
+                    : h(NIcon, null, { default: () => h(RemoveRedEyeTwotone) }),
+              }
+            ),
+          ],
+        }
+      );
+    },
     key: "email",
+    render: (row) => {
+      if (disableEye.value) {
+        return "*".repeat(row.email.length);
+      } else {
+        return row.email;
+      }
+    },
   },
   {
     title: "用户组",
