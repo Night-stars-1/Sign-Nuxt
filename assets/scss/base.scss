@@ -35,12 +35,30 @@
     padding-right: 8px;
 }
 
+.light {
+    .n-select {
+        .n-base-selection {
+            --n-color: rgb(0 0 0 / 10%) !important;
+            --n-color-active: rgb(0 0 0 / 10%) !important;
+            // --n-color: none !important;
+            --n-arrow-color: rgb(51, 54, 57) !important;
+            --n-border: none !important;
+        }
+    }
+
+    .n-base-select-menu {
+        --n-color: rgb(209, 209, 209) !important;
+        --n-option-color-pending: rgb(0 0 0 / 10%) !important;
+        --n-option-color-active-pending: rgb(0 0 0 / 10%) !important;
+    }
+}
+
 body {
     --base-background-color: #e5effd;
     --sidebar-background-color: #e5effd;
     --loading-background-color: var(--sidebar-background-color);
-    --text-color: black;
-    --text-other-color: black;
+    --text-color: rgb(51, 54, 57);
+    --text-other-color: rgb(51, 54, 57);
 }
 
 body.dark {

@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 15:36:40
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-21 18:24:47
+ * @LastEditTime: 2024-12-22 15:43:05
 -->
 <script setup lang="ts">
 import { darkTheme, dateZhCN, zhCN, type GlobalThemeOverrides } from "naive-ui";
@@ -16,10 +16,14 @@ useHead({
 });
 
 const theme = useTheme();
-useHead({
+useHeadSafe({
   bodyAttrs: {
-    class: theme.value.toString(),
+    class: theme.value,
   },
+});
+watch(theme, (theme, oldTheme) => {
+  document.body.classList.remove(oldTheme);
+  document.body.classList.add(theme);
 });
 
 const lightThemeOverrides: GlobalThemeOverrides = {

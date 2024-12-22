@@ -46,6 +46,7 @@ const columns: DataTableColumns<UserInfo> = [
   {
     title: "ID",
     key: "id",
+    width: "10%",
   },
   {
     title: "邮箱",
@@ -54,6 +55,7 @@ const columns: DataTableColumns<UserInfo> = [
   {
     title: "用户组",
     key: "group",
+    width: "25%",
     render(row) {
       return getGroupName(row.group);
     },
@@ -61,6 +63,7 @@ const columns: DataTableColumns<UserInfo> = [
   {
     title: "操作",
     key: "actions",
+    width: "10%",
     render(row, index) {
       return h(
         NButton,
