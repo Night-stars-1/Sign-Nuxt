@@ -8,6 +8,10 @@
     .only-mobile {
         display: none !important;
     }
+
+    ::-webkit-scrollbar {
+        width: 0px;
+    }
 }
 
 .n-card {

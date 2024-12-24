@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-30 19:21:53
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-21 18:31:53
+ * @LastEditTime: 2024-12-24 13:48:11
 -->
 <!--
  * @Author: Night-stars-1 nujj1042633805@gmail.com
@@ -148,7 +148,12 @@ const collapse = () => {
   }
 
   &.collapse {
-    width: 55px;
+    .bottom {
+      flex-direction: column-reverse;
+    }
+    & {
+      width: 55px;
+    }
   }
 
   & {

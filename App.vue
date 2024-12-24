@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 15:36:40
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-22 15:43:05
+ * @LastEditTime: 2024-12-24 13:40:00
 -->
 <script setup lang="ts">
 import { darkTheme, dateZhCN, zhCN, type GlobalThemeOverrides } from "naive-ui";
@@ -106,7 +106,7 @@ onMounted(async () => {
 <style lang="scss" scoped>
 .background {
   object-fit: cover;
-  position: absolute;
+  position: fixed;
   filter: blur(20px) brightness(0.3);
   transition: filter 0.3s, transform 0.3s;
   animation: fade-blur-in 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;

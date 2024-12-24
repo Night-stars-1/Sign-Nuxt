@@ -1,3 +1,9 @@
+<!--
+ * @Author: Night-stars-1 nujj1042633805@gmail.com
+ * @Date: 2024-11-30 19:21:53
+ * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
+ * @LastEditTime: 2024-12-24 13:38:26
+-->
 <script setup lang="ts">
 import { DeviceType } from "~/types/device";
 const device = useDevice();
@@ -10,12 +16,14 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div
+  <section
     class="layout"
     :class="{ mobile: device === DeviceType.Mobile }"
     v-show="bgLoad"
   >
-    <slot name="sidebar"></slot>
+    <header>
+      <slot name="sidebar"></slot>
+    </header>
 
     <main
       class="content"
@@ -23,7 +31,7 @@ onBeforeMount(() => {
     >
       <slot name="main"></slot>
     </main>
-  </div>
+  </section>
 </template>
 
 <style lang="scss" scoped>
@@ -36,22 +44,34 @@ onBeforeMount(() => {
       flex-grow: 1; /* 右侧内容区域自适应宽度 */
       padding: 20px;
       box-sizing: border-box;
-      overflow: auto;
     }
   }
 
   &.mobile {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    header {
+      height: 51px;
+    }
+    & {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+  }
+  &:not(.mobile) {
+    .content {
+      overflow: auto;
+    }
+    & {
+      height: 100vh;
+      transform: scale(1);
+      transition: transform 0.3s;
+      animation: fade-blur-main-in 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+        forwards;
+      height: 100vh;
+    }
   }
   & {
     display: flex;
-    height: 100vh;
-    transform: scale(1.2);
-    transition: transform 0.3s;
-    animation: fade-blur-main-in 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94)
-      forwards;
     overflow: hidden;
   }
 }

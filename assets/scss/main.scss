@@ -11,14 +11,21 @@ body {
     }
 }
 
+*,
+:after,
+:before {
+    box-sizing: border-box;
+}
+
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-    background-color: #fff;
+    height: 4px;
+    width: 4px
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #dddee0;
-    border-radius: 20px;
-    box-shadow: inset 0 0 #fff;
+    background-color: #a39696
+}
+
+::-webkit-scrollbar-track {
+    background-color: #00000040
 }

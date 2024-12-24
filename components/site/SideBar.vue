@@ -38,6 +38,8 @@ onBeforeMount(() => {
 <style lang="scss" scoped>
 .sidebar {
   // flex: 1;
+  // position: absolute;
+  height: 100vh;
   background-color: #3b4f64;
   padding: 7px;
   box-sizing: border-box;
@@ -76,7 +78,6 @@ onBeforeMount(() => {
 
     & {
       // width: 200px;
-      height: 100vh;
       padding: 20px;
       box-sizing: border-box;
       position: fixed;
@@ -96,6 +97,7 @@ onBeforeMount(() => {
 
   & {
     width: 100vw;
+    position: fixed;
   }
 }
 </style>
