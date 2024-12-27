@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-12-01 01:33:47
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-20 22:33:37
+ * @LastEditTime: 2024-12-27 23:05:29
 -->
 <script setup lang="ts">
 const emit = defineEmits(["close"]);
@@ -62,6 +62,7 @@ var goods: Goods;
 const goodsData = ref<GoodsData>();
 const addressData = ref<AddressData[]>([]);
 const userGameData = ref<UserGameData[]>([]);
+const potion = ref(0);
 const step = ref<string>("loading"); // 账号选择->奖品选择->1.地址选择/2.游戏账号选择 特殊状态 loading
 var goodsPage = 1;
 var accountId = "0";
@@ -105,13 +106,23 @@ const getGoodsList = async () => {
   step.value = "奖品选择";
 };
 
+const getPotion = async () => {
+  const { data } = await useHttp.get<number>(`mihoyo/potion/${accountId}`);
+  potion.value = data
+}
+
 const accountSelect = (account: AccountData) => {
   step.value = "loading";
   accountId = account.account_id;
   getGoodsList();
+  getPotion();
 };
 
 const goodsSelect = async (_goods: Goods) => {
+  if (_goods.price > potion.value) {
+    message.warning("米游币不足");
+    return;
+  }
   goods = _goods;
   switch (_goods.type) {
     case 1:
@@ -128,7 +139,7 @@ const goodsSelect = async (_goods: Goods) => {
 const addressSelect = async () => {
   step.value = "loading";
   const { data } = await useHttp.get<AddressData[]>("goods/address", {
-    actionId: accountId,
+    accountId,
   });
   addressData.value = data;
   step.value = "地址选择";
@@ -137,7 +148,7 @@ const addressSelect = async () => {
 const userGameSelect = async (_goods: Goods) => {
   step.value = "loading";
   const { data } = await useHttp.get<UserGameData[]>("goods/userGame", {
-    actionId: accountId,
+    accountId,
     goodsId: _goods.goods_id,
   });
   userGameData.value = data;
@@ -181,6 +192,9 @@ const deleteGoods = async () => {
     <NButton class="goods-delete-btn" @click="deleteGoods"> 删除任务 </NButton>
   </div>
   <div class="mihoyo-goods" v-if="step == '奖品选择' && goodsData">
+    <div class="">
+      
+    </div>
     <NInfiniteScroll style="max-height: 100%" @load="getGoodsList">
       <NButton
         class="goods-btn goods1-btn"
@@ -189,7 +203,7 @@ const deleteGoods = async () => {
       >
         <div class="goods-btn-content">
           <div>商品: {{ goods.goods_name }}</div>
-          <div>米游币: {{ goods.price }} 数量: {{ goods.next_num }}</div>
+          <div>米游币: {{ goods.price }}/{{ potion }} 数量: {{ goods.next_num }}</div>
           <div>
             时间: {{ dayjs.unix(goods.next_time).format("YYYY-MM-DD HH:mm") }}
           </div>
