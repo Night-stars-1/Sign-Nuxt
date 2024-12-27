@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 23:52:39
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-20 23:32:48
+ * @LastEditTime: 2024-12-27 23:08:00
 -->
 <script setup lang="ts">
 import { UserGroup } from "~/types/user";
@@ -38,17 +38,20 @@ const addTaskOptions = [
     value: "mihoyo",
   },
 ];
-onMounted(() => {
-  if (
-    userInfo.value.group == UserGroup.Goods1 ||
-    userInfo.value.group == UserGroup.Admin
-  ) {
-    addTaskOptions.push({
-      label: "米游社兑换",
-      value: "mihoyo_goods",
-    });
+watch(
+  () => userInfo.value.group,
+  () => {
+    if (
+      userInfo.value.group == UserGroup.Goods1 ||
+      userInfo.value.group == UserGroup.Admin
+    ) {
+      addTaskOptions.push({
+        label: "米游社兑换",
+        value: "mihoyo_goods",
+      });
+    }
   }
-});
+);
 
 const getList = async () => {
   const { data } = await useHttp.get<Data[]>("task/list");
