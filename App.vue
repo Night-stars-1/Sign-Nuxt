@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 15:36:40
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-24 13:40:00
+ * @LastEditTime: 2024-12-28 23:47:08
 -->
 <script setup lang="ts">
 import { darkTheme, dateZhCN, zhCN, type GlobalThemeOverrides } from "naive-ui";
@@ -10,6 +10,8 @@ import { darkTheme, dateZhCN, zhCN, type GlobalThemeOverrides } from "naive-ui";
 const bgImage = useBackground();
 const bgLoad = useBgload();
 const isAnimationEnd = ref(false);
+const bg = ref<HTMLImageElement>();
+
 useHead({
   title: "签到系统",
   titleTemplate: "%s - 签到系统",
@@ -64,6 +66,7 @@ onMounted(async () => {
     bgLoad.value = true;
   }, 1500);
   getUserInfo();
+  bgLoad.value = bg.value?.complete ?? false
 });
 </script>
 
@@ -73,8 +76,10 @@ onMounted(async () => {
     class="background"
     :class="{ 'animation-end': isAnimationEnd }"
     alt="background"
+    ref="bg"
     :src="bgImage"
-    v-show="bgLoad"
+    @load="bgLoad = true"
+    @error.once="bgLoad = true"
     @animationend="isAnimationEnd = true"
   />
   <NuxtRouteAnnouncer />

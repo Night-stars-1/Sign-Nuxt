@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-12-01 01:33:47
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-27 23:05:29
+ * @LastEditTime: 2024-12-28 23:23:09
 -->
 <script setup lang="ts">
 const emit = defineEmits(["close"]);
@@ -81,8 +81,10 @@ const getGoodsList = async () => {
     goodsData.value &&
     goodsData.value.list &&
     goodsData.value.list.length >= goodsData.value.total
-  )
+  ) {
+    console.log("忽略")
     return;
+  }
   const { data } = await useHttp.post<GoodsData>("goods/list", {
     account_id: accountId,
     game: "",
@@ -96,6 +98,7 @@ const getGoodsList = async () => {
     );
   }
   goodsPage += 1;
+  console.log(data.list)
   if (goodsData.value) {
     if (data.list && goodsData.value.list) {
       goodsData.value.list = goodsData.value.list.concat(data.list);
