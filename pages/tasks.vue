@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 23:52:39
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-27 23:08:00
+ * @LastEditTime: 2024-12-28 23:21:01
 -->
 <script setup lang="ts">
 import { UserGroup } from "~/types/user";
@@ -38,10 +38,8 @@ const addTaskOptions = [
     value: "mihoyo",
   },
 ];
-watch(
-  () => userInfo.value.group,
-  () => {
-    if (
+const setAdminTaskOptions = () => {
+  if (
       userInfo.value.group == UserGroup.Goods1 ||
       userInfo.value.group == UserGroup.Admin
     ) {
@@ -50,8 +48,14 @@ watch(
         value: "mihoyo_goods",
       });
     }
+}
+watch(
+  () => userInfo.value.group,
+  () => {
+    setAdminTaskOptions();
   }
 );
+onMounted(setAdminTaskOptions);
 
 const getList = async () => {
   const { data } = await useHttp.get<Data[]>("task/list");
