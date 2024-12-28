@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-12-01 01:33:47
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-28 23:23:09
+ * @LastEditTime: 2024-12-29 00:09:48
 -->
 <script setup lang="ts">
 const emit = defineEmits(["close"]);
@@ -82,7 +82,7 @@ const getGoodsList = async () => {
     goodsData.value.list &&
     goodsData.value.list.length >= goodsData.value.total
   ) {
-    console.log("忽略")
+    console.log("忽略");
     return;
   }
   const { data } = await useHttp.post<GoodsData>("goods/list", {
@@ -90,15 +90,8 @@ const getGoodsList = async () => {
     game: "",
     page: goodsPage.toString(),
   });
-  if (data.list) {
-    // 去除已经开售的
-    data.list = data.list.filter(
-      (item) =>
-        timestamp < item.next_time && item.status == "online" && item.total == 0
-    );
-  }
   goodsPage += 1;
-  console.log(data.list)
+  console.log(data.list);
   if (goodsData.value) {
     if (data.list && goodsData.value.list) {
       goodsData.value.list = goodsData.value.list.concat(data.list);
@@ -109,10 +102,20 @@ const getGoodsList = async () => {
   step.value = "奖品选择";
 };
 
+/** 去除已经开售的 */
+const getGoods = () =>
+  goodsData.value?.list?.filter(
+    (item) =>
+      (timestamp < item.next_time &&
+        item.status == "online" &&
+        item.total == 0) ||
+      item.status == "not_in_sell"
+  ) ?? [];
+
 const getPotion = async () => {
   const { data } = await useHttp.get<number>(`mihoyo/potion/${accountId}`);
-  potion.value = data
-}
+  potion.value = data;
+};
 
 const accountSelect = (account: AccountData) => {
   step.value = "loading";
@@ -195,19 +198,20 @@ const deleteGoods = async () => {
     <NButton class="goods-delete-btn" @click="deleteGoods"> 删除任务 </NButton>
   </div>
   <div class="mihoyo-goods" v-if="step == '奖品选择' && goodsData">
-    <div class="">
-      
-    </div>
+    <div class=""></div>
     <NInfiniteScroll style="max-height: 100%" @load="getGoodsList">
       <NButton
         class="goods-btn goods1-btn"
-        v-for="goods in goodsData.list"
+        v-for="goods in getGoods()"
         @click="goodsSelect(goods)"
       >
         <div class="goods-btn-content">
           <div>商品: {{ goods.goods_name }}</div>
-          <div>米游币: {{ goods.price }}/{{ potion }} 数量: {{ goods.next_num }}</div>
           <div>
+            米游币: {{ goods.price }}/{{ potion }} 数量: {{ goods.next_num }}
+          </div>
+          <div v-if="goods.status == 'not_in_sell'">未开售</div>
+          <div v-else>
             时间: {{ dayjs.unix(goods.next_time).format("YYYY-MM-DD HH:mm") }}
           </div>
         </div>
