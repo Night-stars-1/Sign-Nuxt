@@ -32,7 +32,7 @@ const disableEye = ref(false);
 const pagination = reactive<PaginationProps>({
   page: 1,
   pageCount: 1,
-  pageSize: 20,
+  pageSize: 10,
   prefix({ itemCount }) {
     return h(
       "div",
