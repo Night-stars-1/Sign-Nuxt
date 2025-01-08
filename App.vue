@@ -2,7 +2,7 @@
  * @Author: Night-stars-1 nujj1042633805@gmail.com
  * @Date: 2024-11-16 15:36:40
  * @LastEditors: Night-stars-1 nujj1042633805@gmail.com
- * @LastEditTime: 2024-12-28 23:47:08
+ * @LastEditTime: 2025-01-08 14:43:24
 -->
 <script setup lang="ts">
 import { darkTheme, dateZhCN, zhCN, type GlobalThemeOverrides } from "naive-ui";
@@ -58,6 +58,11 @@ const darkThemeOverrides: GlobalThemeOverrides = {
   },
   Modal: {
     color: "rgb(0 0 0 / 65%)",
+  },
+  Input: {
+    color: "rgb(0 0 0 / 65%)",
+    border: "1px solid #0000",
+    colorFocus: "rgb(0 0 0 / 45%)",
   },
 };
 
