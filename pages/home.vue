@@ -7,10 +7,8 @@ useHead({
 
 const showModal = ref(false);
 const notice = ref("");
-const isAdmin = ref(false);
-onBeforeMount(() => {
-  isAdmin.value = localStorage.getItem("group") == UserGroup.Admin.toString();
-});
+const userInfo = useUserInfo();
+const isAdmin = computed(() => userInfo.value.group == UserGroup.Admin);
 
 const getNotice = async () => {
   const { message } = await useHttp.get<ResponseModel>("info/notice");
