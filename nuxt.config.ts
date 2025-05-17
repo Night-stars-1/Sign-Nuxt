@@ -47,7 +47,7 @@ export default defineNuxtConfig({
     },
   },
   nitro: {
-    // 用于客户端代理
+    // 客户端代理
     devProxy: {
       "/api": {
         target: process.env.BASE_URL,
@@ -55,7 +55,7 @@ export default defineNuxtConfig({
         prependPath: true,
       },
     },
-    // 该配置用于服务端请求转发
+    // 服务端请求转发
     routeRules: {
       "/api/**": {
         proxy: process.env.SERVER_PROXY,
