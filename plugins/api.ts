@@ -24,9 +24,10 @@ export default defineNuxtPlugin((nuxtApp) => {
       500: () => err("服务器内部错误", response._data?.message),
       403: () => err("没有权限访问该资源", response._data?.message),
       401: () => {
-        err("登录状态已过期，需要重新登录", response._data?.message);
+        if (token.value)
+          err("未登录或登录状态已过期，请重新登录", response._data?.message);
         nuxtApp.runWithContext(() => {
-          useCookie("token").value == null;
+          token.value == null;
           navigateTo("/login");
         });
       },
