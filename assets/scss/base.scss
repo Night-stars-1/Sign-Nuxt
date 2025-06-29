@@ -16,17 +16,8 @@
 
 input:-internal-autofill-previewed,
 input:-internal-autofill-selected {
-    -webkit-text-fill-color: rgb(255 255 255 / 65%);
+    -webkit-text-fill-color: var(--n-text-color);
     transition: background-color 5000s ease-out 0.5s !important;
-}
-
-@media (min-width: 600px) {
-
-    input:-internal-autofill-previewed,
-    input:-internal-autofill-selected {
-        -webkit-text-fill-color: rgb(0 0 0 / 65%);
-        transition: background-color 5000s ease-out 0.5s !important;
-    }
 }
 
 .n-card {

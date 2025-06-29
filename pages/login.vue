@@ -87,7 +87,7 @@ const api = async (path: string) => {
     code: formValue.value.code,
   });
   if (import.meta.dev) token.value = data.token;
-  await getUserInfo()
+  await getUserInfo();
   navigateTo("/home");
 };
 
@@ -148,6 +148,9 @@ const getCode = async () => {
               type="password"
               show-password-on="click"
               placeholder="输入密码"
+              :input-props="{
+                autocomplete: 'new-password',
+              }"
             />
           </NFormItem>
           <NFormItem
