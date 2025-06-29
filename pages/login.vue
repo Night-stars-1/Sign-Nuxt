@@ -139,7 +139,13 @@ const getCode = async () => {
           size="medium"
         >
           <NFormItem label="邮箱" path="email">
-            <NInput v-model:value="formValue.email" placeholder="输入邮箱" />
+            <NInput
+              v-model:value="formValue.email"
+              placeholder="输入邮箱"
+              :input-props="{
+                autocomplete: 'username',
+              }"
+            />
           </NFormItem>
           <NFormItem label="密码" path="password">
             <NInput
