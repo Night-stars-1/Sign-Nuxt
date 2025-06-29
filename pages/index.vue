@@ -7,7 +7,7 @@
 <script setup lang="ts">
 const token = useCookie("token")
 onMounted(() => {
-  token ? navigateTo("/login") : navigateTo("/home");
+  token ? navigateTo("/home") : navigateTo("/login");
 });
 </script>
 <template></template>
