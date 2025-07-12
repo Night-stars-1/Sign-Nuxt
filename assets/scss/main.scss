@@ -29,3 +29,8 @@ body {
 ::-webkit-scrollbar-track {
     background-color: #00000040
 }
+
+.n-qr-code canvas {
+    width: -webkit-fill-available !important;
+    height: -webkit-fill-available !important;
+}
